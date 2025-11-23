@@ -1,0 +1,25 @@
+[project]
+name = "anibridge-docs"
+version = "0.1.0"
+description = "Documentation for the AniBridge project."
+readme = "README.md"
+requires-python = ">=3.13"
+
+authors = [
+    { name = "Elias Benbourenane", email = "eliasbenbourenane@gmail.com" },
+]
+maintainers = [
+    { name = "Elias Benbourenane", email = "eliasbenbourenane@gmail.com" },
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "zensical>=0.0.9",
+]
+

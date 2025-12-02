@@ -71,7 +71,7 @@ Determines the triggers for scanning:
 
 - `periodic`: Scan all items at the specified [scan interval](#scan_interval).
 - `poll`: Poll for changes every 30 seconds, making incremental updates.
-- `webhook`: Trigger scans via [webhook payloads](https://support.plex.tv/articles/115002267687-webhooks/).
+- `webhook`: Trigger scans via webhook payloads from the library provider.
 
 Setting `scan_modes` to `None` or an empty list will cause the application to perform a single scan on startup and then exit.
 
@@ -80,6 +80,12 @@ By default, all three modes are enabled, allowing for instant, incremental updat
 !!! info "Webhooks"
 
     Using the webhooks sync mode will require configuring your library provider (e.g., Plex) to send webhook payloads to AniBridge. Refer to the documentation of your library provider for instructions on setting up webhooks.
+
+    A prerequisite for using webhooks is that the web interface is [enabled](#webenabled) and accessible to the library provider.
+
+    With webhooks enabled, set your library provider to send webhooks to `/webhook/{provider}`, where `{provider}` is the name of your library provider (e.g., `plex`).
+
+    Once webhooks are setup, it is recommended to disable the `poll` scan mode as it becomes redundant.
 
     _Note: not all library providers may support webhooks._
 
@@ -227,6 +233,12 @@ provider_config:
 **`sections`**: A list of Plex library section names to constrain synchronization to. Leave empty/unset to include all sections.
 
 **`genres`**: A list of genres to constrain synchronization to. Leave empty/unset to include all genres.
+
+??? tip "Plex Webhooks"
+
+    To use the `webhook` [scan mode](#scan_modes) with Plex, add a webhook pointing to AniBridge at `/webhook/plex` as described in the [Plex Webhooks documentation](https://support.plex.tv/articles/115002267687-webhooks/).
+
+    An example webhook URL might be `http://localhost:4848/webhook/plex`.
 
 ### list_provider: `anilist`
 

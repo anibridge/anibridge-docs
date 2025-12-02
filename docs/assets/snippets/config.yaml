@@ -1,0 +1,45 @@
+#== Shared Settings ==#
+global_config:
+  library_provider: "plex"
+  list_provider: "anilist"
+
+  scan_modes: ["periodic", "poll", "webhook"]
+  scan_interval: 86400
+  full_scan: false
+  destructive_sync: false
+  excluded_sync_fields: ["review", "user_rating"]
+
+  backup_retention_days: 30
+  batch_requests: false
+  search_fallback_threshold: -1
+  dry_run: false
+
+  #== Provider Settings ==#
+  provider_config:
+    anilist:
+      token: ...
+    plex:
+      token: ...
+      url: ...
+      user: ...
+      sections: []
+      genres: []
+
+#== Profile Settings ==#
+# profiles:
+#     example:
+#         $field: $value
+
+#== App Settings ==#
+log_level: "INFO"
+mappings_url: "https://raw.githubusercontent.com/anibridge/anibridge-mappings/v2/mappings.json"
+provider_modules: []
+web:
+  enabled: true
+  host: "0.0.0.0"
+  port: 4848
+  basic_auth:
+    username: null
+    password: null
+    htpasswd_path: null
+    realm: "AniBridge"

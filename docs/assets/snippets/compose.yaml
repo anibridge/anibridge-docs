@@ -1,0 +1,13 @@
+services:
+  anibridge:
+    image: ghcr.io/anibridge/anibridge:v2
+    environment:
+      PUID: 1000
+      PGID: 1000
+      UMASK: 022
+      TZ: "Etc/UTC"
+    volumes:
+      - /path/to/anibridge/data:/config
+    ports:
+      - 4848:4848
+    restart: unless-stopped

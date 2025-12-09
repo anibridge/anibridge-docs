@@ -79,11 +79,11 @@ By default, all three modes are enabled, allowing for instant, incremental updat
 
 !!! info "Webhooks"
 
-    Using the webhooks sync mode will require configuring your library provider (e.g., Plex) to send webhook payloads to AniBridge. Refer to the documentation of your library provider for instructions on setting up webhooks.
+    Using the webhooks scan mode will require configuring your library provider (e.g., Plex) to send webhook payloads to AniBridge. Refer to the documentation of your library provider for instructions on setting up webhooks.
 
     A prerequisite for using webhooks is that the web interface is [enabled](#webenabled) and accessible to the library provider.
 
-    With webhooks enabled, set your library provider to send webhooks to `/webhook/{provider}`, where `{provider}` is the name of your library provider (e.g., `plex`).
+    With webhooks enabled, set your library provider to send webhooks to `/webhook/{provider}`, where `{provider}` is the namespace of your library provider (e.g., `plex`).
 
     Once webhooks are setup, it is recommended to disable the `poll` scan mode as it becomes redundant.
 
@@ -105,7 +105,7 @@ When enabled, the scan process will include all items, regardless of watch activ
 
 !!! warning "Recommended Usage"
 
-    Full scans are generally **not recommended** unless combined with [`destructive_sync`](#destructive_sync) to delete AniList entries for unwatched Plex content.
+    Full scans are generally **not recommended** unless combined with [`destructive_sync`](#destructive_sync) to delete list provider entries for unwatched library provider content.
 
     Enabling `full_scan` can lead to **excessive API usage** and **longer processing times**.
 
@@ -124,9 +124,9 @@ Allows regressive updates and deletions, which **can cause data loss**.
     Destructive sync allows:
 
     - Deleting AniList entries.
-    - Making regressive updates - e.g., if AniList progress is higher than Plex, AniList will be **lowered** to match Plex.
+    - Making regressive updates - e.g., if the list's progress is higher than the library's, the list will be **lowered** to match the library.
 
-    To delete AniList entries for unwatched Plex content, enable both `FULL_SCAN` and `DESTRUCTIVE_SYNC`.
+    To delete AniList entries for unwatched library content, enable both [`full_scan`](#full_scan) and `destructive_sync`.
 
 ---
 

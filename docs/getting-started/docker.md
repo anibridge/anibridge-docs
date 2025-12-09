@@ -74,5 +74,5 @@ docker run \
     ```yaml
     services:
       anibridge:
-        build: https://github.com/eliasbenb/PlexAniBridge.git#develop
+        build: https://github.com/anibridge/anibridge.git#develop
     ```

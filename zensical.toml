@@ -12,6 +12,8 @@ repo_url = "https://github.com/anibridge/anibridge"
 
 repo_name = "anibridge/anibridge"
 
+edit_uri = "https://github.com/anibridge/anibridge-docs/edit/main/docs/"
+
 # The site_name is shown in the page header and the browser window title
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_name

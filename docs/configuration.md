@@ -276,7 +276,7 @@ Sets logging verbosity for the entire application.
 
 ### `mappings_url`
 
-`str` (Optional, default: `https://raw.githubusercontent.com/anibridge/anibridge-mappings/v2/mappings.json`)
+`str` (Optional, default: `https://raw.githubusercontent.com/anibridge/anibridge-mappings/v3/mappings.json`)
 
 URL to the upstream mappings source. This can be a JSON or YAML file.
 

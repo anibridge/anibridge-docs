@@ -32,7 +32,7 @@ global_config:
 
 #== App Settings ==#
 log_level: "INFO"
-mappings_url: "https://raw.githubusercontent.com/anibridge/anibridge-mappings/v2/mappings.json"
+mappings_url: "https://raw.githubusercontent.com/anibridge/anibridge-mappings/v3/mappings.json"
 provider_modules: []
 web:
   enabled: true

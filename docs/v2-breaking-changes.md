@@ -81,7 +81,7 @@ profiles:
 
 v2 is provider-agnostic. Users can select which library and list providers to use through the config.
 
-Each profile must declare its [`library_provider`](./configuration.md#library_provider) and [`list_provider`](./configuration.md#list_provider), and provider-specific settings must be nested under a [`provider_config:`](./configuration.md#provider-settings) key.
+Each profile must declare its [`library_provider`](./configuration.md#library_provider) and [`list_provider`](./configuration.md#list_provider), and provider-specific settings must be nested under a [`library_provider_config`](./configuration.md#provider-settings) and [`list_provider_config`](./configuration.md#provider-settings) key respectively.
 
 AniBridge currently supports these built-in providers (with more planned):
 

@@ -2,28 +2,27 @@
 global_config:
   library_provider: "plex"
   list_provider: "anilist"
-
   scan_modes: ["periodic", "poll", "webhook"]
   scan_interval: 86400
   full_scan: false
   destructive_sync: false
   excluded_sync_fields: ["review", "user_rating"]
-
   backup_retention_days: 30
   batch_requests: false
   search_fallback_threshold: -1
   dry_run: false
 
   #== Provider Settings ==#
-  provider_config:
-    anilist:
-      token: ...
+  library_provider_config:
     plex:
       token: ...
       url: ...
       user: ...
       sections: []
       genres: []
+  list_provider_config:
+    anilist:
+      token: ...
 
 #== Profile Settings ==#
 # profiles:

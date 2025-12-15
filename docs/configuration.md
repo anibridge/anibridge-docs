@@ -216,7 +216,7 @@ Source: [anibridge/anibridge-plex-provider](https://github.com/anibridge/anibrid
 **Sample Configuration:**
 
 ```yaml
-provider_config:
+library_provider_config:
   plex:
     url: ...
     token: ...
@@ -248,7 +248,7 @@ Source: [anibridge/anibridge-anilist-provider](https://github.com/anibridge/anib
 **Sample Configuration:**
 
 ```yaml
-provider_config:
+list_provider_config:
   anilist:
     token: ...
 ```
@@ -397,31 +397,34 @@ This example demonstrates configuring three profiles for different Plex and AniL
 global_config:
   library_provider: "plex"
   list_provider: "anilist"
-  scan_modes: ["periodic"]
-  provider_config:
+  library_provider_config:
     plex:
       token: "EzF..."
       url: "http://localhost:32400"
+  scan_modes: ["periodic"]
 
 profiles:
   nitta:
-    provider_config:
-      anilist:
-        token: "eYJ..."
+    library_provider_config:
       plex:
         user: "nitta32"
-  hina:
-    provider_config:
+    list_provider_config:
       anilist:
-        token: "sKf..."
+        token: "eYJ..."
+  hina:
+    library_provider_config:
       plex:
         user: "hina_jp@gmail.com"
-  guest:
-    providers:
+    list_provider_config:
       anilist:
-        token: "gHt..."
+        token: "sKf..."
+  guest:
+    library_provider_config:
       plex:
         user: "Guest User"
+    list_provider_config:
+      anilist:
+        token: "gHt..."
     excluded_sync_fields: ["review", "user_rating", "started_at", "finished_at"]
 ```
 
@@ -434,19 +437,20 @@ This example demonstrates configuring separate profiles for different Plex secti
 global_config:
   library_provider: "plex"
   list_provider: "anilist"
-  scan_modes: ["periodic"]
-  provider_config:
-    anilist:
-      token: "eYJ..."
+  library_provider_config:
     plex:
       token: "EzF..."
       user: "Kyomoto"
       url: "http://localhost:32400"
+  list_provider_config:
+    anilist:
+      token: "eYJ..."
+  scan_modes: ["periodic"]
 
 profiles:
   # For movies, perform full, destructive scans every 30 minutes
   movies:
-    provider_config:
+    library_provider_config:
       plex:
         sections: ["Anime Movies"]
     full_scan: true
@@ -455,7 +459,7 @@ profiles:
     excluded_sync_fields: []
   # For shows, use the built-in defaults
   shows:
-    providers:
+    library_provider_config:
       plex:
         sections: ["Anime"]
 ```
@@ -467,23 +471,23 @@ This example demonstrates configuring a single Plex user to sync with multiple l
 ```yaml
 global_config:
   library_provider: "plex"
-  scan_modes: ["periodic", "webhook"]
-  provider_config:
+  library_provider_config:
     plex:
       token: "EzF..."
       url: "http://localhost:32400"
       user: "takopi"
+  scan_modes: ["periodic", "webhook"]
 
 profiles:
   anilist:
     list_provider: "anilist"
-    provider_config:
+    list_provider_config:
       anilist:
         token: "eYJ..."
 
   mal: # TODO: MAL provider not yet implemented
     list_provider: "mal"
-    provider_config:
+    list_provider_config:
       mal:
         token: "XyZ..."
 ```

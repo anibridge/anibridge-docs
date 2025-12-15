@@ -1,7 +1,8 @@
 ---
-title: Configuration
 icon: material/cog
 ---
+
+# Configuration
 
 AniBridge reads configuration from a YAML file named `config.yaml` that lives
 inside the data directory `$AB_DATA_PATH` (defaults to `./data`).

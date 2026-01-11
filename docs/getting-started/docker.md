@@ -34,7 +34,7 @@ docker run \
     -e TZ=Etc/UTC \
     -p 4848:4848 \
     -v /path/to/anibridge/data:/config \
-    ghcr.io/anibridge/anibridge:2
+    ghcr.io/anibridge/anibridge:v2
 ```
 
 !!! tip "Environment Variables"

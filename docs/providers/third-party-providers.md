@@ -4,8 +4,8 @@ icon: material/apps
 
 # Third-Party Providers
 
-AniBridge can load additional **library** (what you watch) and and **list** (where your progress is tracked),
-providers as Python modules letting you extend the supported providers beyond the built-ins.
+AniBridge can load additional **library** (what you watch) and **list** (where your progress is tracked)
+providers as Python modules letting you extend the supported providers beyond those built-in.
 
 This page covers how to install and configure third-party provider modules, as well as direct developers
 to resources for building their own.

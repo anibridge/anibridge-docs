@@ -3,6 +3,7 @@
     "eamodio.gitlens",
     "esbenp.prettier-vscode",
     "ms-python.python",
+    "redhat.vscode-yaml",
     "tamasfe.even-better-toml",
     "yzhang.markdown-all-in-one"
   ]

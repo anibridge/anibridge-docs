@@ -485,7 +485,7 @@ profiles:
       anilist:
         token: "eYJ..."
 
-  mal: # TODO: MAL provider not yet implemented
+  mal:
     list_provider: "mal"
     list_provider_config:
       mal:

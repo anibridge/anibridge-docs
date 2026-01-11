@@ -23,6 +23,9 @@ global_config:
   list_provider_config:
     anilist:
       token: ...
+    mal:
+      token: ...
+      client_id: "b11a4e1ead0db8142268906b4bb676a4"
 
 #== Profile Settings ==#
 # profiles:

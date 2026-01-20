@@ -46,21 +46,17 @@ the `global_config` key.
 
 ### `library_provider`
 
-`str` (default: `plex`)
+`str`
 
-Specifies the media library provider to use. Currently, `plex` is the only built-in option.
-
-Load third-party providers via the [`provider_modules`](#provider_modules) setting.
+Specifies the media library provider to use (e.g., `plex`, `jellyfin`).
 
 ---
 
 ### `list_provider`
 
-`str` (default: `anilist`)
+`str`
 
-Specifies the list provider to use. Currently, `anilist` is the only built-in option.
-
-Load third-party providers via the [`provider_modules`](#provider_modules) setting.
+Specifies the list provider to use (e.g., `anilist`, `mal`).
 
 ---
 

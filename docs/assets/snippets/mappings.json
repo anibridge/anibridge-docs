@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/anibridge/anibridge-mappings-staging/refs/heads/v3/mappings.schema.json",
+  "$schema": "https://raw.githubusercontent.com/anibridge/anibridge-mappings-staging/refs/heads/main/mappings.schema.json",
   "$meta": {
     "schema_version": "v3",
     "description": "Example mappings illustrating AniBridge v3 format"
@@ -9,10 +9,10 @@
     "https://url.to/another/mappings.json"
   ],
   "anidb:99999:s1": {
-    "anilist:99999:s1": {
+    "anilist:99999": {
       "1-12": "1-12"
     },
-    "mal:99999:s1": {
+    "mal:99999": {
       "1-12": "1-12"
     },
     "tmdb_show:99999:s1": {

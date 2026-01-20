@@ -8,7 +8,9 @@ This page summarizes the major, breaking changes introduced in the v2 release.
 
 !!! danger "Important"
 
-    Upgrading from v1 to v2 is **not** a seamless process. Please read through all the changes below to understand the necessary migration steps. Backup your existing data and configuration before proceeding.
+    Upgrading from v1 to v2 is **not** a seamless process. Please read through all the changes below to understand the necessary migration steps.
+
+    It is recommend to backup your existing data and configuration before proceeding. However, migrating your prior data will not be possible due to the significant changes in architecture and schema.
 
 ## Project rebrand
 
@@ -19,7 +21,27 @@ The project has been renamed from "PlexAniBridge" to "AniBridge" to reflect its 
 - The official mapping repository has moved from `https://github.com/eliasbenb/PlexAniBridge-Mappings` to [`https://github.com/anibridge/anibridge-mappings`](https://github.com/anibridge/anibridge-mappings).
 - Documentation has been updated to reflect the new project name and URLs.
 
-If you are using Docker, please update your image references accordingly.
+If you are using Docker, please update your image references accordingly:
+
+<div class="grid" markdown>
+
+```yaml
+# v1 Docker compose
+services:
+  plexanibridge:
+    image: ghcr.io/eliasbenb/plexanibridge:v1
+    ...
+```
+
+```yaml
+# v2 Docker compose
+services:
+  anibridge:
+    image: ghcr.io/anibridge/anibridge:v2
+    ...
+```
+
+</div>
 
 ## Configuration changes
 
@@ -27,13 +49,13 @@ v2 introduces a provider-agnostic architecture, allowing AniBridge to support mu
 
 ### YAML configuration
 
-v1 allowed multiple config sources (files and environment variables). v2 accepts a single YAML config file.
+v1 allowed multiple config sources (YAML, JSON, and environment variables). **v2 only accepts a single YAML config file**.
 
-If you used environment variables to override config values in v1, move those values into the YAML file located at `$AB_DATA_PATH/config.yaml`.
+If you used environment variables or a JSON file to configure your v1 instance, move those values into the YAML file located at `$AB_DATA_PATH/config.yaml`.
 
 ### Key renames and nesting
 
-Some configuration keys were renamed for clarity. The most notable changes are:
+Some previously existing configuration keys were renamed for clarity. The most notable changes are:
 
 - `sync_modes` → `scan_modes`
 - `sync_interval` → `scan_interval`
@@ -48,9 +70,9 @@ Configuration for the web UI is now nested under a `web` key:
 - `web_basic_auth_htpasswd_path` → `web.basic_auth.htpasswd_path`
 - `web_basic_auth_realm` → `web.basic_auth.realm`
 
-### `global_config` nesting
+### Global config nesting
 
-In v1, values defined at the root level were implicitly global/shared across profiles. In v2, you must explicitly nest these shared options under a `global_config` key.
+In v1, values defined at the root level were implicitly global/shared across profiles. In v2, **you must explicitly nest these shared options under a `global_config` key**.
 
 _Note: certain application-level settings (like `log_level`, `mappings_url`, `web`, etc.) remain at the root level._
 
@@ -85,10 +107,10 @@ Each profile must declare its [`library_provider`](./configuration.md#library_pr
 
 AniBridge currently supports these built-in providers (with more planned):
 
-- Library providers: Plex (`plex`), Jellyfin (`jellyfin`)
-- List providers: AniList (`anilist`), MyAnimeList (`mal`)
+- Library providers: [Plex](./providers/library/plex.md) (`plex`), [Jellyfin](./providers/library/jellyfin.md) (`jellyfin`)
+- List providers: [AniList](./providers/list/anilist.md) (`anilist`), [MyAnimeList](./providers/list/mal.md) (`mal`)
 
-Users can also load 3rd-party providers that implement the [library interface](https://github.com/anibridge/anibridge-library-interface) or [list interface](https://github.com/anibridge/anibridge-list-interface) by including the full Python module path in [`provider_modules`](./configuration.md#provider_modules).
+For advanced users: you can also load 3rd-party providers that implement the [library base](https://github.com/anibridge/anibridge-library-base) or [list base](https://github.com/anibridge/anibridge-list-base) by including the full Python module path in [`provider_modules`](./configuration.md#provider_modules). This opens up possibilities for custom or community-developed providers.
 
 **Example for Plex-AniList:**
 
@@ -112,13 +134,12 @@ profiles:
   some_profile:
     library_provider: plex
     list_provider: anilist
-    providers:
+    library_provider_config:
       plex:
         url: ...
         token: ...
         user: ...
-        sections: []
-        genres: []
+    list_provider_config:
       anilist:
         token: ...
 ```
@@ -127,7 +148,7 @@ profiles:
 
 ## Mapping schema
 
-Significant changes were made to the mapping schema in v2 to increase flexibility under the new provider-agnostic architecture. As a result, all custom mappings from v1 are incompatible with v2. Users must recreate any custom mappings using the new schema defined in the [AniBridge Mappings repository](https://github.com/anibridge/anibridge-mappings).
+Significant changes were made to the mapping schema in v2 to increase flexibility under the new provider-agnostic architecture. As a result, all custom mappings from v1 are incompatible with v2. Users must recreate any custom mappings using the new schema defined in the [AniBridge Mappings repository](https://github.com/anibridge/anibridge-mappings). _See the repository for more detailed documentation on the new mapping format_.
 
 Example conversion:
 
@@ -146,24 +167,28 @@ Example conversion:
 
 ```yaml
 # v2 custom mapping
-anilist:1:s1: # Specify the AniList provider
-  tmdb:12345:s1:
+anilist:1: # Specify the source descriptor (<provider>:<id><:optional scope>)
+  tmdb_show:12345:s1:
     "1-12": "1-12" # AniList 1-12 maps to TMDB 1-12
-  tvdb:67890:s1:
+  tvdb_show:67890:s1:
     "1-12": "1-12" # AniList 1-12 maps to TVDB 1-12
 ```
 
 </div>
 
-The old format cannot be converted automatically due to the v2 schema requiring new data (both a source and target episode range).
+!!! note
+
+    The old format cannot be converted automatically due to the v2 schema requiring new data (both a source and target episode range).
 
 ## Database
 
 The local database schema had to be overhauled to support the new provider-agnostic architecture. As a result, it was decided to reset the database for v2. Migration from v1 to v2 is not supported, users must start with a fresh database.
 
-The v2 release resets the database migration history and uses a new SQLite filename (`plexanibridge.db` → `anibridge.db`).
+!!! important
 
-As a result, all existing sync history and pins will be lost when upgrading from v1 to v2.
+    The v2 release resets the database migration history and uses a new SQLite filename (`plexanibridge.db` → `anibridge.db`).
+
+    As a result, all existing sync history and pins will be lost when upgrading from v1 to v2.
 
 ## Platform and runtime
 

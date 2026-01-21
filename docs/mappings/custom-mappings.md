@@ -35,6 +35,10 @@ Below is an example mappings file. You can use [the JSON schema](https://github.
     --8<-- "docs/assets/snippets/mappings.json"
     ```
 
+??? tip "Zstandard compression"
+
+    AniBridge supports loading custom mappings from [Zstandard](https://facebook.github.io/zstd/) compressed files with the `.zst` extension. This is useful for reducing file size when dealing with large mapping files.
+
 ## Local Custom Mappings
 
 AniBridge will look for a custom mappings file with the name `mappings.(json|yaml|yml)` in the `$AB_DATA_PATH` directory (defaults to `./data`). The file extension determines the format of the file (YAML or JSON).

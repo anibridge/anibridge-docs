@@ -4,4 +4,13 @@ icon: simple/jellyfin
 
 # Jellyfin
 
-https://github.com/anibridge/anibridge-jellyfin-provider
+A library provider for [Jellyfin](https://jellyfin.org/).
+
+[https://github.com/anibridge/anibridge-jellyfin-provider](https://github.com/anibridge/anibridge-jellyfin-provider)
+
+## Configuration
+
+```yaml
+library_provider_config:
+  jellyfin: ...
+```

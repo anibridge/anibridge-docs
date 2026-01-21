@@ -41,7 +41,7 @@ Below is an example mappings file. You can use [the JSON schema](https://github.
 
 ## Local Custom Mappings
 
-AniBridge will look for a custom mappings file with the name `mappings.(json|yaml|yml)` in the `$AB_DATA_PATH` directory (defaults to `./data`). The file extension determines the format of the file (YAML or JSON).
+AniBridge will look for a custom mappings file with the name `mappings.(json|yaml|yml)(.zst)?` in the `$AB_DATA_PATH` directory (defaults to `./data`). The file extension determines the format of the file (YAML or JSON).
 
 ## Community Custom Mappings
 
@@ -54,4 +54,4 @@ There are community maintained mappings repositories that you can use to get pre
 
 ## Default Mappings
 
-If you want to contribute your custom mappings to the community, you can submit a pull request to the [anibridge-mappings](https://github.com/anibridge/anibridge-mappings) repository. Your pull request should modify the [`mappings.edits.yaml`](https://github.com/anibridge/anibridge-mappings/blob/HEAD/mappings.edits.yaml) and **not** the [`mappings.json`](https://github.com/anibridge/anibridge-mappings/blob/HEAD/mappings.json) file.
+If you want to contribute your custom mappings to the community, you can submit a pull request to the [anibridge-mappings](https://github.com/anibridge/anibridge-mappings) repository. Your pull request should modify the [`mappings.edits.yaml`](https://github.com/anibridge/anibridge-mappings/blob/HEAD/mappings.edits.yaml) file.

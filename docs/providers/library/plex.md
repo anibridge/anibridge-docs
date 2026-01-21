@@ -16,8 +16,8 @@ library_provider_config:
     url: ...
     token: ...
     user: ...
-    sections: []
-    genres: []
+    # sections: []
+    # genres: []
 ```
 
 ### `url` (`str`)
@@ -27,6 +27,10 @@ The base URL of the Plex server (e.g., http://localhost:32400).
 ### `token` (`str`)
 
 The account API token of the Plex server admin. Get a token by following [these instructions](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/).
+
+!!! danger
+
+    The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your Plex account.
 
 ### `user` (`str`)
 
@@ -39,3 +43,17 @@ A list of Plex library section names to constrain synchronization to. Leave empt
 ### `genres` (`list[str]`, optional)
 
 A list of genres to constrain synchronization to. Leave empty/unset to include all genres.
+
+## Webhooks
+
+The Plex provider supports webhooks for automatic synchronization on activity. To set up webhooks, configure your Plex server to send webhook requests to your AniBridge instance at the following URL:
+
+!!! note "Plex Pass Required"
+
+    Plex webhooks are a premium feature and require a Plex Pass subscription.
+
+```
+http://<your-server-host>:<port>/webhook/plex
+```
+
+Refer to the Plex documentation for instructions on setting up webhooks: [Plex Webhooks](https://support.plex.tv/articles/115002267687-webhooks/).

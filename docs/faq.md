@@ -18,7 +18,7 @@ If you find a title that is not mapped, please consider submitting a pull reques
 
 If you are attempting to use webhooks with AniBridge and have enabled HTTP Basic Authentication for the web UI, you may encounter `401 Unauthorized` errors.
 
-To resolve this, ensure that you include the credentials in the webhook URL. Example webhook URL: `http://username:password@<your-server-host>:<port>/webhook/plex`.
+To resolve this, ensure that you include the appropriate credentials in the webhook URL (or request header if available). Example webhook URL: `http://username:password@<your-server-host>:<port>/webhook/<provider>`.
 
 You may need to encode special characters in your username or password using [URL encoding](https://meyerweb.com/eric/tools/dencoder/). For example, if your password is `p@ssw0rd`, you would encode it as `p%40ssw0rd`.
 

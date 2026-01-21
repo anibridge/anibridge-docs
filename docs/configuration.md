@@ -17,16 +17,11 @@ A [config editor](./web/settings.md) is also available through the web UI.
 
 ## Configuration Hierarchy
 
-AniBridge supports having multiple, concurrently active profiles, each with its own
-set of configuration options. This allows you to sync different libraries or users
-with tailored settings.
+AniBridge supports having multiple, concurrently active profiles, each with its own set of configuration options. This allows you to sync different libraries or users with tailored settings.
 
-To simplify configuration management, settings can also be defined globally and
-shared across all profiles by defining them under the top-level `global_config` key.
+To simplify configuration management, settings can also be defined globally and shared across all profiles by defining them under the top-level `global_config` key.
 
-To define profile-specific settings, use the `profiles` key in the configuration file
-with the profile name as a sub-key. Any settings defined under a profile will
-override the corresponding global settings for that profile.
+To define profile-specific settings, use the `profiles` key in the configuration file with the profile name as a sub-key. Any settings defined under a profile will override the corresponding global settings for that profile.
 
 Settings are applied in the following order:
 
@@ -34,10 +29,7 @@ Settings are applied in the following order:
 2. **Global shared settings** (medium priority)
 3. **Built-in defaults** (lowest priority)
 
-For example, if `global_config.scan_interval` is defined as `900` and
-`profiles.personal.scan_interval` is defined as `1800`, the profile named `personal`
-will use the overridden value of `1800`. If `scan_interval` is not defined under
-either the profile or global settings, the built-in default of `86400` will be used.
+For example, if `global_config.scan_interval` is defined as `900` and `profiles.personal.scan_interval` is defined as `1800`, the profile named `personal` will use the overridden value of `1800`. If `scan_interval` is not defined under either the profile or global settings, the built-in default of `86400` will be used.
 
 ## Profile Configuration
 
@@ -209,7 +201,7 @@ Each provider may consume additional configuration options. Refer to the documen
   - [:simple-plex: Plex](./providers/library/plex.md){: style="text-decoration: none; color: #e5a00d" }
   - [:simple-jellyfin: Jellyfin](./providers/library/jellyfin.md){: style="text-decoration: none; color: #AA5CC3" }
   - [:simple-anilist: AniList](./providers/list/anilist.md){: style="text-decoration: none; color: #1da1f2" }
-  - [:simple-myanimelist: MAL](./providers/list/mal.md){: style="text-decoration: none; color: #2e51a2" }
+  - [:simple-myanimelist: MyAnimeList](./providers/list/mal.md){: style="text-decoration: none; color: #2e51a2" }
 </div>
 
 ### library_provider_config
@@ -256,7 +248,7 @@ Sets logging verbosity for the entire application.
 
 ### `mappings_url`
 
-`str` (Optional, default: `https://raw.githubusercontent.com/anibridge/anibridge-mappings/v3/mappings.json.zst`)
+`str` (Optional, default: `https://github.com/anibridge/anibridge-mappings/releases/latest/download/mappings.json.zst`)
 
 URL to the upstream mappings source. This can be a JSON or YAML file, optionally compressed with [Zstandard](https://facebook.github.io/zstd/) (`*.zst`).
 

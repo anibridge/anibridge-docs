@@ -1,31 +1,29 @@
+############################################################################################################
+# This is a template configuration file for AniBridge.                                                     #
+# All optional coniguration fields  are commented out with their default values.                           #
+# Required fields are uncommented and indicated by a placeholder `...`.                                    #
+#                                                                                                          #
+# Please refer to the documentation for more details: https://anibridge.eliasbenb.dev/configuration/       #
+############################################################################################################
+
 #== Shared Settings ==#
 global_config:
-  library_provider: "plex"
-  list_provider: "anilist"
-  scan_modes: ["periodic", "poll", "webhook"]
-  scan_interval: 86400
-  full_scan: false
-  destructive_sync: false
-  excluded_sync_fields: ["review", "user_rating"]
-  backup_retention_days: 30
-  batch_requests: false
-  search_fallback_threshold: -1
-  dry_run: false
+  library_provider: ...
+  list_provider: ...
+  # scan_modes: ["periodic", "poll", "webhook"]
+  # scan_interval: 86400
+  # full_scan: false
+  # destructive_sync: false
+  # excluded_sync_fields: ["review", "user_rating"]
+  # backup_retention_days: 30
+  # batch_requests: false
+  # search_fallback_threshold: -1
+  # dry_run: false
 
   #== Provider Settings ==#
-  library_provider_config:
-    plex:
-      token: ...
-      url: ...
-      user: ...
-      sections: []
-      genres: []
-  list_provider_config:
-    anilist:
-      token: ...
-    mal:
-      token: ...
-      client_id: "b11a4e1ead0db8142268906b4bb676a4"
+  library_provider_config: ... # Refer to provider-specific configuration documentation
+  list_provider_config: ... # Refer to provider-specific configuration documentation
+
 
 #== Profile Settings ==#
 # profiles:
@@ -33,15 +31,15 @@ global_config:
 #         $field: $value
 
 #== App Settings ==#
-log_level: "INFO"
-mappings_url: "https://raw.githubusercontent.com/anibridge/anibridge-mappings/v3/mappings.json"
-provider_modules: []
-web:
-  enabled: true
-  host: "0.0.0.0"
-  port: 4848
-  basic_auth:
-    username: null
-    password: null
-    htpasswd_path: null
-    realm: "AniBridge"
+# log_level: "INFO"
+# mappings_url: "https://github.com/anibridge/anibridge-mappings/releases/latest/download/mappings.json.zst"
+# provider_modules: []
+# web:
+#   enabled: true
+#   host: "0.0.0.0"
+#   port: 4848
+#   basic_auth:
+#     username: null
+#     password: null
+#     htpasswd_path: null
+#     realm: "AniBridge"

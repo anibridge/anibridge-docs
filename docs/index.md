@@ -10,14 +10,17 @@ The smart way to keep your anime lists perfectly synchronized.
 
 [![Discord Shield](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fey8kyQU9aD%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&style=for-the-badge&logo=discord&label=Discord%20Users&labelColor=%23313338&color=%235865f2&cacheSeconds=10800)](https://discord.gg/ey8kyQU9aD) [![GitHub Shield](https://img.shields.io/github/stars/anibridge/anibridge?style=for-the-badge&logo=github&label=GitHub%20Stars&labelColor=%2324292e&color=%23f0f0f0)](https://github.com/anibridge/anibridge) [![Docker Pulls](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fghcr-badge.eliasbenb.dev%2Fapi%2Feliasbenb%2Fanibridge%2Fanibridge&query=downloadCount&style=for-the-badge&logo=docker&label=Docker%20Pulls&color=2496ed)](https://github.com/anibridge/anibridge/pkgs/container/anibridge)
 
-[Docker Setup](./getting-started/docker.md) | [Source Setup](./getting-started/source.md) | [Configuration](./configuration.md)
+AniBridge is a media synchronization tool designed to keep your activity synchronized across different media viewing and tracking platforms. With its [mappings database](https://github.com/anibridge/anibridge-mappings) of over 60K entries tailored specifically for anime titles, AniBridge is particularly focused on anime content, however can be expanded to support more with [custom mappings](./mappings/custom-mappings.md).
+
+AniBridge has built-in support for popular platforms like [Plex](./providers/library/plex.md), [Jellyfin](./providers/library/jellyfin.md), [AniList](./providers/list/anilist.md), [MyAnimeList](./providers/list/mal.md), and can be extended to support additional providers through [third-party plugins](./providers/third-party-providers.md).
 
 ## Key Features
 
-- **🔄 Comprehensive Synchronization**: Automatically synchronizes watch status, progress, ratings, reviews, and start/completion dates between your anime library and list.
-- **🎯 Smart Content Matching**: Uses a [curated mappings database](https://github.com/anibridge/anibridge-mappings) with fuzzy title search fallback and support for custom mapping overrides.
+- **🔄 Comprehensive Synchronization**: Synchronizes watch status, progress, ratings, reviews, and start/completion dates between your anime library and list.
+- **🔗 Provider-Agnostic**: Supports multiple media library and anime list providers through a flexible plugin system (Plex, Jellyfin, AniList, MyAnimeList).
+- **🎯 Smart Content Matching**: Uses a curated mappings database with fuzzy title search fallback and support for custom mapping overrides.
 - **⚡ Optimized Performance**: Intelligent batch processing, rate limiting, and caching to minimize API usage while maximizing sync speed.
-- **👥 Multi-User & Multi-Profile**: Define multiple profiles with separate settings targeting different users or libraries.
+- **👥 Multi-User & Multi-Profile**: Define multiple profiles to simultaneously synchronize different users, libraries, and servers with granular configuration.
 - **🖥️ Web Dashboard**: Intuitive web interface with a real-time sync timeline, profile management, custom mapping editor, and log viewer.
 - **🛡️ Safe & Reliable**: Built-in dry run mode for testing and automatic backups with restoration through the web UI for easy recovery.
 - **🐳 Easy Deployment**: Docker-ready with easy YAML-based configuration.

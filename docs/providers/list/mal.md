@@ -2,6 +2,25 @@
 icon: simple/myanimelist
 ---
 
-# MyAnimeList
+# MAL
 
-https://github.com/anibridge/anibridge-mal-provider
+A list provider for [MAL](https://myanimelist.net/).
+
+[https://github.com/anibridge/anibridge-mal-provider](https://github.com/anibridge/anibridge-mal-provider)
+
+```yaml
+list_provider_config:
+  mal:
+    token: ...
+    client_id: "b11a4e1ead0db8142268906b4bb676a4"
+```
+
+## Configuration
+
+### `token` (`str`)
+
+Your MyAnimeList API refresh token. You can generate one [here](https://anibridge.eliasbenb.dev?generate_token=mal).
+
+### `client_id` (`str`, optional)
+
+Your MyAnimeList API client ID. This option is for advanced users who want to use their own client ID. If not provided, a default client ID managed by the AniBridge team will be used.

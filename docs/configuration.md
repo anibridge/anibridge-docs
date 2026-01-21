@@ -203,53 +203,36 @@ When enabled:
 
 ## Provider Settings
 
-Providers may consume additional configuration options. Refer to the documentation of each provider for details. Here are the configuration options for the built-in providers:
+Each provider may consume additional configuration options. Refer to the documentation of each provider for details:
 
-### library_provider: `plex`
+<div class="grid cards" markdown>
+  - [:simple-plex: Plex](./providers/library/plex.md){: style="text-decoration: none; color: #e5a00d" }
+  - [:simple-jellyfin: Jellyfin](./providers/library/jellyfin.md){: style="text-decoration: none; color: #AA5CC3" }
+  - [:simple-anilist: AniList](./providers/list/anilist.md){: style="text-decoration: none; color: #1da1f2" }
+  - [:simple-myanimelist: MAL](./providers/list/mal.md){: style="text-decoration: none; color: #2e51a2" }
+</div>
 
-Source: [anibridge/anibridge-plex-provider](https://github.com/anibridge/anibridge-plex-provider)
+### library_provider_config
 
-**Sample Configuration:**
+This is a dictionary where each key is the namespace of a library provider (e.g., `plex`, `jellyfin`), and the value is another dictionary containing configuration options that will be passed to that provider.
 
 ```yaml
 library_provider_config:
-  plex:
-    url: ...
-    token: ...
-    user: ...
-    sections: []
-    genres: []
+  provider_namespace:
+    option1: ...
+    option2: ...
 ```
 
-**`token`**: The account API token of the Plex server admin. Get a token by following [these instructions](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/).
+### list_provider_config
 
-**`url`**: The base URL of the Plex server (e.g., `http://localhost:32400`).
-
-**`user`**: The Plex user to synchronize. This can be a username, email, or display name.
-
-**`sections`**: A list of Plex library section names to constrain synchronization to. Leave empty/unset to include all sections.
-
-**`genres`**: A list of genres to constrain synchronization to. Leave empty/unset to include all genres.
-
-??? tip "Plex Webhooks"
-
-    To use the `webhook` [scan mode](#scan_modes) with Plex, add a webhook pointing to AniBridge at `/webhook/plex` as described in the [Plex Webhooks documentation](https://support.plex.tv/articles/115002267687-webhooks/).
-
-    An example webhook URL might be `http://localhost:4848/webhook/plex`.
-
-### list_provider: `anilist`
-
-Source: [anibridge/anibridge-anilist-provider](https://github.com/anibridge/anibridge-anilist-provider)
-
-**Sample Configuration:**
+This is a dictionary where each key is the namespace of a list provider (e.g., `anilist`, `mal`), and the value is another dictionary containing configuration options that will be passed to that provider.
 
 ```yaml
 list_provider_config:
-  anilist:
-    token: ...
+  provider_namespace:
+    option1: ...
+    option2: ...
 ```
-
-**`token`**: Your AniList API token. Generate one [here](https://anilist.co/login?apiVersion=v2&client_id=23079&response_type=token).
 
 ## App Settings
 
@@ -273,9 +256,9 @@ Sets logging verbosity for the entire application.
 
 ### `mappings_url`
 
-`str` (Optional, default: `https://raw.githubusercontent.com/anibridge/anibridge-mappings/v3/mappings.json`)
+`str` (Optional, default: `https://raw.githubusercontent.com/anibridge/anibridge-mappings/v3/mappings.json.zst`)
 
-URL to the upstream mappings source. This can be a JSON or YAML file.
+URL to the upstream mappings source. This can be a JSON or YAML file, optionally compressed with [Zstandard](https://facebook.github.io/zstd/) (`*.zst`).
 
 This option is only intended for advanced users who want to use their own upstream mappings source or disable upstream mappings entirely. For most users, it is recommended to keep the default value.
 
@@ -293,7 +276,7 @@ This option is only intended for advanced users who want to use their own upstre
 
 `list[str]` (Optional, default: `[]`)
 
-A list of provider modules to load. This is an advanced option to load additional library or list providers beyond the built-in options. Each module must be a valid Python package installed in the environment.
+A list of provider modules to load. This is an advanced option to load additional library or list providers beyond the built-in options. Each module must be a [valid provider Python package](./providers/third-party-providers.md) installed in the current environment.
 
 For example, to load a hypothetical `my_custom_provider` module:
 

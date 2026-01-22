@@ -43,10 +43,6 @@ _Note: IN lists are not supported for all fields. The web UI will only suggest a
 - `foo:<10` → Search where `foo` is less than 10
 - `foo:100..210` → Search where `foo` is between 100 and 210
 
-### Field Presence
-
-- `has:foo` → Search for mappings that have the field `foo`
-
 ### Wildcards
 
 Use `*` for any sequence of characters and `?` for a single character. Matching is case-insensitive.
@@ -64,17 +60,26 @@ For fields that store JSON dictionaries, you can use the following syntax:
 
 ## Supported Database Fields
 
-The following fields are queried against the local mappings database:
+When querying the local mappings database, there are three categories of fields you can use: **source nodes**, **target nodes**, and **edges**.
 
-- `anilist` → AniList ID
-- `anidb` → AniDB ID
-- `imdb` → IMDb ID
-- `mal` → MyAnimeList ID
-- `tmdb_movie` → TMDB Movie ID
-- `tmdb_show` → TMDB Show ID
-- `tvdb` → TVDB Show ID
-- `tmdb_mappings` → Searches keys/values in TMDB mappings dictionary
-- `tvdb_mappings` → Searches keys/values in TVDB mappings dictionary
+A node represents an identifier for an entry in some source (e.g., AniList, TMDB, TVDB, IMDb). An edge represents an episode mapping between two nodes. To illustrate:
+
+```yaml
+anilist:9999: # Source node
+  tvdb_show:8888:s1: # Target node
+    "1-12": "1-12" # Edge
+```
+
+With these concepts in mind, here are the supported fields:
+
+- `source.provider` → Source node provider (e.g., anilist, tvdb, tmdb_show, imdb, etc.)
+- `source.id` → Source node ID
+- `source.scope` → Source node scope (e.g., s0, s1, etc.)
+- `target.provider` → Target node provider (e.g., anilist, tvdb, tmdb_show, imdb, etc.)
+- `target.id` → Target node ID
+- `target.scope` → Target node scope (e.g., s0, s1, etc.)
+- `edge.source_range` → Edge source range (e.g., 1-12)
+- `edge.target_range` → Edge target range (e.g., 1-12)
 
 ## Supported AniList Fields
 
@@ -99,29 +104,26 @@ The following fields are queried against the AniList API:
 "Dororo"
 # Title search for "Dororo"
 
-anilist:101347
-# AniList ID lookup
+source.provider:anilist source.id:12345
+# Source AniList ID lookup
 
-tvdb:328592 | tmdb_show:21298
-# TVDB ID 328592 OR TMDB Show ID 21298
+source.provider:anilist | source.provider:mal
+# Source is AniList OR MyAnimeList
 
-anilist:>100000
-# AniList IDs greater than 100000
+target.provider:anilist target.id:>100000
+# Target AniList IDs greater than 100000
 
--(anilist:100..200)
-# Exclude AniList IDs 100 to 200 (inclusive)
+-(source.id:100..200)
+# Exclude IDs 100 to 200 (inclusive)
 
--has:tvdb_mappings
-# Exclude results that have TVDB mappings
+target.id:tt0*
+# IDs starting with "tt0" (IMDB IDs)
 
-imdb:tt0*
-# IMDb IDs starting with "tt0"
+source.descriptor:s0
+# Look for season 0 (specials) in source nodes
 
-tvdb_mappings:s0
-# TVDB mappings with season 0
-
-tmdb_mappings:e12*
-# TMDB mappings starting with episode 12
+edge.source_range:12-*
+# Edges where source range starts at episode 12
 
 anilist.status:RELEASING anilist.genre:Action
 # Currently releasing anime in the Action genre

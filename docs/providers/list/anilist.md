@@ -18,7 +18,9 @@ list_provider_config:
     token: ...
 ```
 
-Your AniList API token. You can generate one [here](https://anilist.co/login?apiVersion=v2&client_id=34003&response_type=token).
+Your AniList API token.
+
+[:simple-anilist: Generate an AniList API token](./anilist?generate_token=anilist){: .md-button style="background-color: #1da1f2; color: white; border-radius: 0.4em;"}
 
 !!! danger
 

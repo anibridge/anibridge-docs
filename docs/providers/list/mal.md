@@ -21,6 +21,8 @@ list_provider_config:
 
 Your MyAnimeList API refresh token. You can generate one [here](https://anibridge.eliasbenb.dev?generate_token=mal).
 
+[:simple-myanimelist: Generate a MAL API token](./mal?generate_token=mal){: .md-button style="background-color: #2e51a2; color: white; border-radius: 0.4em;"}
+
 !!! danger
 
     The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your MyAnimeList account.

@@ -1,0 +1,222 @@
+.oauth-modal-open {
+  overflow: hidden;
+}
+
+.oauth-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 9999;
+}
+
+.oauth-modal {
+  width: min(36rem, 100%);
+  background: var(--md-default-bg-color);
+  color: var(--md-typeset-color);
+  border-radius: 0.85rem;
+  border: 1px solid var(--md-default-bg-color--lighter);
+  box-shadow: var(--md-shadow-z2);
+  padding: 1.5rem 1.6rem 1.3rem;
+  position: relative;
+}
+
+.oauth-modal h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+.oauth-modal__provider {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.oauth-modal__provider-logo,
+.oauth-modal__provider-logo-inline,
+.oauth-modal__provider-badge {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border-radius: 0.45rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--md-default-bg-color--lighter);
+  color: var(--md-typeset-color);
+}
+
+.oauth-modal__provider-logo {
+  object-fit: contain;
+}
+
+.oauth-modal__provider-badge {
+  font-weight: 700;
+}
+
+.oauth-modal__provider-name {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.oauth-modal__advanced {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.oauth-modal__advanced > summary {
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  margin-bottom: 0.35rem;
+}
+
+.oauth-modal__advanced-content {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.oauth-modal__field-label {
+  font-size: 0.6rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.oauth-modal__field {
+  padding: 0.45rem 0.6rem;
+  border-radius: 0.5rem;
+  border: 1px solid #333;
+  background: var(--md-default-bg-color);
+  color: var(--md-typeset-color);
+}
+
+.oauth-modal p {
+  margin: 0 0 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.oauth-modal__status {
+  margin-bottom: 0.75rem;
+}
+
+.oauth-modal__status--error {
+  color: var(--md-accent-fg-color);
+  font-weight: 600;
+}
+
+.oauth-modal__disclaimer {
+  font-weight: 600;
+  color: var(--md-accent-fg-color);
+}
+
+.oauth-modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.oauth-modal__output {
+  display: grid;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.oauth-modal__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--md-default-fg-color--light);
+}
+
+.oauth-modal__token {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--md-default-bg-color--lighter);
+  background: var(--md-code-bg-color);
+  color: var(--md-code-fg-color);
+  resize: vertical;
+}
+
+.oauth-modal__actions button {
+  appearance: none;
+  padding: 0.55rem 0.95rem;
+  border-radius: 0.6rem;
+  font-weight: 600;
+  border: 1px solid var(--md-primary-fg-color);
+  background: transparent;
+  color: var(--md-primary-fg-color);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s,
+    box-shadow 0.15s;
+  box-shadow: var(--md-shadow-z1);
+}
+
+.oauth-modal__actions button:hover {
+  box-shadow: var(--md-shadow-z2);
+}
+
+.oauth-modal__actions button.oauth-modal__confirm {
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+.oauth-modal__actions button.oauth-modal__confirm:hover {
+  filter: brightness(1.05);
+}
+
+.oauth-modal__actions button:focus-visible {
+  box-shadow:
+    0 0 0 0.2rem var(--md-accent-fg-color--transparent),
+    var(--md-shadow-z2);
+}
+
+.oauth-modal__actions button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.oauth-modal__close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--md-default-fg-color--light);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.oauth-modal__close:hover {
+  background: var(--md-default-bg-color--lightest);
+  color: var(--md-typeset-color);
+  border-color: var(--md-default-bg-color--lighter);
+}
+
+@media (max-width: 600px) {
+  .oauth-modal {
+    padding: 1.2rem 1.2rem 1rem;
+  }
+
+  .oauth-modal__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

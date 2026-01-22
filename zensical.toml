@@ -43,10 +43,13 @@ copyright = """
 &copy; 2025 AniBridge
 """
 
-extra_css = ["assets/css/htpasswd-generator.css"]
+extra_css = ["assets/css/htpasswd-generator.css", "assets/css/oauth-modal.css"]
 extra_javascript = [
   "https://cdn.jsdelivr.net/npm/bcryptjs@3/umd/index.min.js",
   "assets/js/htpasswd-generator.js",
+  "assets/js/oauth/oauth-modal.js",
+  "assets/js/oauth/anilist.js",
+  "assets/js/oauth/mal.js",
 ]
 
 # Zensical supports both implicit navigation and explicitly defined navigation.

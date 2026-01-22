@@ -19,7 +19,7 @@ list_provider_config:
 
 ### `token` (`str`)
 
-Your MyAnimeList API refresh token. You can generate one [here](https://anibridge.eliasbenb.dev?generate_token=mal).
+Your MyAnimeList API refresh token.
 
 [:simple-myanimelist: Generate a MAL API token](./mal?generate_token=mal){: .md-button style="background-color: #2e51a2; color: white; border-radius: 0.4em;"}
 

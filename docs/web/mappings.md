@@ -11,7 +11,6 @@ The mappings page lets you browse and manage the mapping database. You can searc
 ## Searching & Filtering
 
 - The search bar uses the [Mappings Query Language](../mappings/mappings-querying-language.md) with autocomplete hints as you type.
-- Some useful queries to try: `"One Piece"`, `anilist:12345`, `tvdb:67890`, `has:tvdb_mappings`.
 - Press `Enter` or click the search icon to run a query.
 - Toggle `Custom Only` to limit results to entries sourced from your [custom mappings](../mappings/custom-mappings.md).
 
@@ -25,5 +24,4 @@ The mappings page lets you browse and manage the mapping database. You can searc
 ## Editing & Creating Overrides
 
 - `New Override` (plus icon in toolbar) opens the editor with a blank template; `Edit` in a row pre-fills fields from the current mapping.
-- The override editor has two tabs: Form and Raw JSON; Form mode exposes all supported identifiers with per-field modes (`omit`, `null`, `value`) and helper controls for TMDB/TVDB season mappings.
-- Switch to `Raw JSON` for a schema-backed Monaco editor that validates against the override schema. Changes sync back to the form when you return.
+- Press "Reveret to Upstream" on any mapping to delete the override and restore the original as it exists in the upstream sources (note this requires refetching the upstream data).

@@ -17,4 +17,4 @@ The profile view lists every backup with its filename, when it was created, how 
 Actions on each row:
 
 - `Preview` opens the backup in a modal so you can skim the JSON of your list backup before doing anything permanent.
-- `Restore` triggers the restore job, and shows a toast summarising how many entries were brought back plus any warnings.
+- `Restore` triggers the restore job.

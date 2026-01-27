@@ -18,6 +18,7 @@ library_provider_config:
     user: ...
     # sections: []
     # genres: []
+    # strict: true
 ```
 
 ### `url` (`str`)
@@ -43,6 +44,10 @@ A list of Plex library section names to constrain synchronization to. Leave empt
 ### `genres` (`list[str]`, optional)
 
 A list of genres to constrain synchronization to. Leave empty/unset to include all genres.
+
+### `strict` (`bool`, optional, default: `true`)
+
+Whether to enforce strict matching when resolving mappings. If `true`, only exact mapping matches of a show's episode ordering (TMDB or TVDB) will be considered. If `false`, falling back from TMDB to TVDB (or vice versa) is allowed.
 
 ## Webhooks
 

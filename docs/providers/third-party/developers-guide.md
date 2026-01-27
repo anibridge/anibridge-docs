@@ -1,8 +1,8 @@
 ---
-icon: material/apps
+icon: material/tools
 ---
 
-# Third-Party Providers
+# Developers Guide
 
 AniBridge can load additional library (what you watch) and list (where your progress is tracked) providers as Python modules letting you extend the supported providers beyond those built-in.
 
@@ -39,3 +39,10 @@ This page covers how to install and configure third-party provider modules, as w
 - **Pick a namespace**: Register your provider with the decorator in the SDKs and set a (`@library_provider` or `@list_provider`). The namespace is what users put in their config's `NAMESPACE` constant claass provider variable `library_provider` / `list_provider`. It should be all lowercase and unique.
 - **Expose configuration**: Accept a `config: dict | None` in your provider `__init__` and document the keys (host URL, tokens, library filters, etc.).
 - **Ship to users**: Publish to PyPI or provide a Git URL. Users load the module via `provider_modules` and set the namespace in their profiles.
+
+!!! tip API references
+
+    For more details on implementing providers, see the API references:
+
+    - [Library Provider API](library-provider-api.md)
+    - [List Provider API](list-provider-api.md)

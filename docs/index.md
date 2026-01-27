@@ -12,7 +12,7 @@ The smart way to keep your anime lists perfectly synchronized.
 
 AniBridge is a media synchronization tool designed to keep your activity synchronized across different media viewing and tracking platforms. With its [mappings database](https://github.com/anibridge/anibridge-mappings) of over 60K entries tailored specifically for anime titles, AniBridge is particularly focused on anime content, however can be expanded to support more with [custom mappings](./mappings/custom-mappings.md).
 
-AniBridge has built-in support for popular platforms like [Plex](./providers/library/plex.md), [Jellyfin](./providers/library/jellyfin.md), [AniList](./providers/list/anilist.md), [MyAnimeList](./providers/list/mal.md), and can be extended to support additional providers through [third-party plugins](./providers/third-party-providers.md).
+AniBridge has built-in support for popular platforms like [Plex](./providers/library/plex.md), [Jellyfin](./providers/library/jellyfin.md), [AniList](./providers/list/anilist.md), [MyAnimeList](./providers/list/mal.md), and can be extended to support additional providers through [third-party plugins](./providers/third-party/developers-guide.md)
 
 ## Key Features
 

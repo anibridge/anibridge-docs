@@ -40,7 +40,7 @@ site_url = "https://anibridge.eliasbenb.dev/"
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-&copy; 2025 AniBridge
+&copy; 2026 AniBridge
 """
 
 extra_css = ["assets/css/htpasswd-generator.css", "assets/css/oauth-modal.css"]
@@ -346,3 +346,13 @@ pygments_lang_class = true
 custom_fences = [
   { name = "mermaid", class = "mermaid", format = "pymdownx.superfences.fence_code_format" },
 ]
+
+[project.plugins.mkdocstrings.handlers.python]
+inventories = [
+  "https://docs.python.org/3/objects.inv",
+  "https://www.starlette.io/objects.inv",
+]
+[project.plugins.mkdocstrings.handlers.python.options]
+docstring_style = "google"
+inherited_members = true
+show_source = true

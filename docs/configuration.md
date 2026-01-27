@@ -268,7 +268,7 @@ This option is only intended for advanced users who want to use their own upstre
 
 `list[str]` (Optional, default: `[]`)
 
-A list of provider modules to load. This is an advanced option to load additional library or list providers beyond the built-in options. Each module must be a [valid provider Python package](./providers/third-party-providers.md) installed in the current environment.
+A list of provider modules to load. This is an advanced option to load additional library or list providers beyond the built-in options. Each module must be a [valid provider Python package](./providers/third-party/developers-guide.md) installed in the current environment.
 
 For example, to load a hypothetical `my_custom_provider` module:
 

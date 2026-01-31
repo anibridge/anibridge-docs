@@ -14,14 +14,14 @@ maintainers = [
 
 classifiers = [
   "Programming Language :: Python :: 3",
-  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
 
 dependencies = [
-  "anibridge-library-base>=0.1.1",
-  "anibridge-list-base>=0.1.1",
+  "anibridge-library-base>=0.2.0b1",
+  "anibridge-list-base>=0.2.0b1",
   "mkdocstrings-python>=2.0.1",
-  "zensical>=0.0.9",
+  "zensical>=0.0.20",
 ]

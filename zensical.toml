@@ -348,10 +348,8 @@ custom_fences = [
 ]
 
 [project.plugins.mkdocstrings.handlers.python]
-inventories = [
-  "https://docs.python.org/3/objects.inv",
-  "https://www.starlette.io/objects.inv",
-]
+inventories = ["https://docs.python.org/3/objects.inv"]
+paths = [".venv/lib/python3.14/site-packages/anibridge"]
 [project.plugins.mkdocstrings.handlers.python.options]
 docstring_style = "google"
 inherited_members = true

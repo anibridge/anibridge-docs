@@ -119,11 +119,11 @@ Allows regressive updates and deletions, which **can cause data loss**.
 
 ---
 
-### `excluded_sync_fields`
+### `sync_fields`
 
-`list[Enum("status", "progress", "repeats", "review", "user_rating", "started_at", "finished_at")]` (Optional, default: `["review", "user_rating"]`)
+`dict[SyncField, bool | dict[str, bool]] ` (Optional, default: `{"review": false, "user_rating": false}`)
 
-Specifies which fields should **not** be synced. Available fields:
+Allows defining granular sync behavior on a per-field basis. It allows for completely disabling syncing of specific fields or configuring them to only sync using comparison operators. Available `SyncField` options are:
 
 - `status` Watch status (watching, completed, etc.)
 - `progress` Number of episodes/movies watched
@@ -133,9 +133,46 @@ Specifies which fields should **not** be synced. Available fields:
 - `started_at` When the user started watching (date)
 - `finished_at` When the user finished watching (date)
 
+To completely disable syncing of a field, set its value to `false`:
+
+```yaml
+sync_fields:
+  review: false
+  user_rating: false
+```
+
+For more granular control, you have access to the following comparison operators: `_lt`, `_lte`, `_gt`, `_gte`, `_eq`, `_ne`, and direct value comparison (e.g., `dropped: false` to disallow changing status to "dropped"). These operators compare the library provider's value with the list provider's value before deciding whether to sync.
+
+```yaml
+sync_fields:
+  progress:
+    _lt: false # Don't allow decreasing progress (e.g., from 5 episodes watched to 4)
+  started_at:
+    _gt: false # Don't allow changing the start date to a later date
+  status:
+    dropped: false # Don't allow changing status to "dropped"
+```
+
 !!! tip "Allowing All Fields"
 
-    To sync all fields, set this to an empty list: `[]`.
+    The `review` and `user_rating` fields are disabled by default to prevent accidental overwriting of existing reviews and ratings.
+
+    To sync all fields, set this to an empty dictionary: `{}`. All undefined fields are implicitly enabled.
+
+??? "Status Comparison Values"
+
+    See the available list status values [here](./providers/third-party/list-provider-api.md#anibridge.list.ListStatus).
+
+    If you want to disallow everything except `current` and `completed`, you can set:
+
+    ```yaml
+    sync_fields:
+      status:
+        dropped: false
+        paused: false
+        planning: false
+        repeating: false
+    ```
 
 ---
 

@@ -14,7 +14,9 @@ global_config:
   # scan_interval: 86400
   # full_scan: false
   # destructive_sync: false
-  # excluded_sync_fields: ["review", "user_rating"]
+  # sync_fields:
+  #   review: false
+  #   user_rating: false
   # backup_retention_days: 30
   # batch_requests: false
   # search_fallback_threshold: -1

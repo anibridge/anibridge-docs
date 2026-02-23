@@ -53,23 +53,6 @@ v1 allowed multiple config sources (YAML, JSON, and environment variables). **v2
 
 If you used environment variables or a JSON file to configure your v1 instance, move those values into the YAML file located at `$AB_DATA_PATH/config.yaml`.
 
-### Key renames and nesting
-
-Some previously existing configuration keys were renamed for clarity. The most notable changes are:
-
-- `sync_modes` → `scan_modes`
-- `sync_interval` → `scan_interval`
-
-Configuration for the web UI is now nested under a `web` key:
-
-- `web_enabled` → `web.enabled`
-- `web_host` → `web.host`
-- `web_port` → `web.port`
-- `web_basic_auth_username` → `web.basic_auth.username`
-- `web_basic_auth_password` → `web.basic_auth.password`
-- `web_basic_auth_htpasswd_path` → `web.basic_auth.htpasswd_path`
-- `web_basic_auth_realm` → `web.basic_auth.realm`
-
 ### Global config nesting
 
 In v1, values defined at the root level were implicitly global/shared across profiles. In v2, **you must explicitly nest these shared options under a `global_config` key**.
@@ -98,6 +81,23 @@ profiles:
 ```
 
 </div>
+
+### Key renames and nesting
+
+Some previously existing configuration keys were renamed for clarity:
+
+- `sync_modes` → `scan_modes`
+- `sync_interval` → `scan_interval`
+
+Configuration for the web UI is now nested under a `web` key:
+
+- `web_enabled` → `web.enabled`
+- `web_host` → `web.host`
+- `web_port` → `web.port`
+- `web_basic_auth_username` → `web.basic_auth.username`
+- `web_basic_auth_password` → `web.basic_auth.password`
+- `web_basic_auth_htpasswd_path` → `web.basic_auth.htpasswd_path`
+- `web_basic_auth_realm` → `web.basic_auth.realm`
 
 ### Provider-first schema
 
@@ -179,6 +179,35 @@ anilist:1: # Specify the source descriptor (<provider>:<id><:optional scope>)
 !!! note
 
     The old format cannot be converted automatically due to the v2 schema requiring new data (both a source and target episode range).
+
+### Sync fields control
+
+In v1, users could set `excluded_sync_fields` to prevent certain fields from being synced. This option has been removed and superseded by `sync_fields` in v2.
+
+The sync_fields option provides granular, per-field control over how data is synchronized. You canl completely disable syncing for specific fields or allow syncing only under certain comparison conditions (e.g. only sync if old > new, only sync if new != x, etc.). This allows for much more flexible and powerful sync behavior compared to the all-or-nothing approach of `excluded_sync_fields`.
+
+You can read more about the new `sync_fields` option and its capabilities in the [configuration documentation](./configuration.md#sync_fields). Below is an example conversion of the old `excluded_sync_fields` to the new `sync_fields`:
+
+<div class="grid" markdown>
+
+```yaml
+# v1 config
+global_config:
+  excluded_sync_fields: ["status", "score"]
+```
+
+```yaml
+# v2 config
+global_config:
+  sync_fields: # Note that all fields are implictly true
+    status: false
+    score: false
+    # Below are some more advanced examples that weren't previously possible
+    # progress:
+    #   _lt: false # Don't sync progress if the new value is less than the old value (prevents regressions)
+    # status:
+    #   dropped: false # Don't sync if the new status is "dropped" (prevents unwanted drops)
+```
 
 ## Database
 

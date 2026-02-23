@@ -209,6 +209,8 @@ global_config:
     #   dropped: false # Don't sync if the new status is "dropped" (prevents unwanted drops)
 ```
 
+</div>
+
 ## Database
 
 The local database schema had to be overhauled to support the new provider-agnostic architecture. As a result, it was decided to reset the database for v2. Migration from v1 to v2 is not supported, users must start with a fresh database.

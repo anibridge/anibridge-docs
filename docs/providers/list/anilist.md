@@ -10,13 +10,13 @@ A list provider for [AniList](https://anilist.co/).
 
 ## Configuration
 
-### `token` (`str`)
-
 ```yaml
 list_provider_config:
   anilist:
     token: ...
 ```
+
+### `token` (`str`)
 
 Your AniList API token.
 

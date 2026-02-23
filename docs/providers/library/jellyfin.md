@@ -50,3 +50,13 @@ genres.
 ### `strict` (`bool`, optional)
 
 When enabled, show/season/episode mappings are restricted to the section's highest-priority TV show metadata downloader from Jellyfin library options. For example, if the top TV metadata downloader is AniDB, only AniDB mapping descriptors will be considered for matching. When disabled, all metadata downloaders will be considered for matching. This option is enabled by default.
+
+## Webhooks
+
+The Jellyfin provider supports webhooks for automatic synchronization on activity. To set up webhooks, install and configure the [jellyfin-webhook-plugin](https://github.com/anibridge/jellyfin-webhook-plugin) to send webhook requests to your AniBridge instance at the following URL:
+
+```
+http://<your-server-host>:<port>/webhook/jellyfin
+```
+
+Use the 'Generic Webhook' type and set the trigger events to 'Library Item Added' and 'Library Item Updated' for `Item Added`, `Playback Stopped`, and `User Data Saved`.

@@ -180,7 +180,7 @@ anilist:1: # Specify the source descriptor (<provider>:<id><:optional scope>)
 
     The old format cannot be converted automatically due to the v2 schema requiring new data (both a source and target episode range).
 
-### Sync fields control
+## Sync fields control
 
 In v1, users could set `excluded_sync_fields` to prevent certain fields from being synced. This option has been removed and superseded by `sync_fields` in v2.
 

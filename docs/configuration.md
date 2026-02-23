@@ -339,6 +339,22 @@ The port to bind the web interface to.
 
 ---
 
+### `web.allow_config_without_auth`
+
+`bool` (Optional, default: `False`)
+
+When enabled, allows access to configuration endpoints without authentication. By default, the configuration endpoints (which contain read/write access to sensitive data) are disabled unless authentication is properly set up.
+
+It is recommended to keep this option disabled unless you have other security measures in place (e.g., network restrictions, reverse proxy with authentication).
+
+This option has no effect if basic authentication is enabled via `web.basic_auth` or an `htpasswd` file, as authentication will be required regardless.
+
+!!! warning "Security Risk"
+
+    Enabling `web.allow_config_without_auth` can expose sensitive configuration data and allow unauthorized modifications if the web interface is accessible to untrusted users. Use with caution and ensure proper security measures are in place.
+
+---
+
 ### `web.basic_auth.username`
 
 `str` (Optional, default: `None`)

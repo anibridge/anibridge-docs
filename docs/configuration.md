@@ -119,6 +119,20 @@ Allows regressive updates and deletions, which **can cause data loss**.
 
 ---
 
+### `empty_sync`
+
+`bool` (Optional, default: `False`)
+
+Allows empty list entry creation, i.e., creating entries for every scanned item, even if they have no watch activity. This is helpful if you want to have a complete mirror of your library on the list provider, including unwatched items. The 'planning' status will be applied to these no-activity entries.
+
+!!! tip
+
+    By default when [`full_scan`](#full_scan) is disabled, only entries where you have some related watch activity (e.g. watched a different season in the same show) will be synced, and empty entries will not be created for fully unwatched items.
+
+    If you'd like to have entries created for every single item in your library, enable [`full_scan`](#full_scan) and `empty_sync`.
+
+---
+
 ### `sync_fields`
 
 `dict[SyncField, bool | dict[str, bool]] ` (Optional, default: `{"review": false, "user_rating": false}`)

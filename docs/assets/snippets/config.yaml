@@ -14,6 +14,7 @@ global_config:
   # scan_interval: 86400
   # full_scan: false
   # destructive_sync: false
+  # empty_sync: false
   # sync_fields:
   #   review: false
   #   user_rating: false

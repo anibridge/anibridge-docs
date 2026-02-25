@@ -34,7 +34,7 @@ global_config:
 
 #== App Settings ==#
 # log_level: "INFO"
-# mappings_url: "https://github.com/anibridge/anibridge-mappings/releases/latest/download/mappings.json.zst"
+# mappings_url: "https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst"
 # provider_modules: []
 # web:
 #   enabled: true

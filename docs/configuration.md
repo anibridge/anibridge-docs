@@ -285,7 +285,7 @@ Sets logging verbosity for the entire application.
 
 ### `mappings_url`
 
-`str` (Optional, default: `https://github.com/anibridge/anibridge-mappings/releases/latest/download/mappings.json.zst`)
+`str` (Optional, default: `https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst`)
 
 URL to the upstream mappings source. This can be a JSON or YAML file, optionally compressed with [Zstandard](https://facebook.github.io/zstd/) (`*.zst`).
 

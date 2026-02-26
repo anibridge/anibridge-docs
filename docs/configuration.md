@@ -116,18 +116,15 @@ When enabled, the scan process will include all items, regardless of watch activ
 
 `bool` (Optional, default: `False`)
 
-Allows regressive updates and deletions, which **can cause data loss**.
+Allows list entry deletions.
 
 !!! danger "Data Loss Warning"
 
     **Enable only if you understand the implications.**
 
-    Destructive sync allows:
+    Destructive sync allows for deleting list entries that have no watch activity.
 
-    - Deleting AniList entries.
-    - Making regressive updates - e.g., if the list's progress is higher than the library's, the list will be **lowered** to match the library.
-
-    To delete AniList entries for unwatched library content, enable both [`full_scan`](#full_scan) and `destructive_sync`.
+    When combined with `full_scan`, this can be used to mirror your library provider's content on the list provider, including removing entries for unwatched items. If `full_scan` is disabled, only library items with partial watch activity (e.g., watched a different season in the same show) may be deleted.
 
 ---
 

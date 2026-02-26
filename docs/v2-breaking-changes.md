@@ -12,6 +12,10 @@ This page summarizes the major, breaking changes introduced in the v2 release.
 
     It is recommend to backup your existing data and configuration before proceeding. However, migrating your prior data will not be possible due to the significant changes in architecture and schema.
 
+!!! tip
+
+    As you read through the changes, I recommend having a local copy of the [example v2 configuration](./configuration.md#example) open for reference to see how the new config structure looks in practice.
+
 ## Project rebrand
 
 The project has been renamed from "PlexAniBridge" to "AniBridge" to reflect its expanded capabilities beyond just Plex integration. As part of this rebrand:
@@ -210,6 +214,43 @@ global_config:
 ```
 
 </div>
+
+## Destructive sync changes
+
+In v1, the `destructive_sync` option controlled **both**:
+
+- Deleting list entries (destructive deletions), and
+- Allowing regressive field updates (e.g., decreasing progress or changing status from "completed" back to "current").
+
+In v2, this behavior has been split for greater precision:
+
+- `destructive_sync` now only controls whether list entries can be deleted.
+- Regressive field updates are now managed exclusively through the new `sync_fields` configuration.
+
+This separation gives users more precise control. You can now prevent regressions on specific fields (such as progress or status) without also enabling destructive deletions.
+
+!!! warning "Default behavior changes"
+
+    In v1, regressive updates were blocked by default. In v2, this is no longer the case and users must explicitly restrict regressions via `sync_fields`.
+
+    If you previously relied on the v1 default behavior (preventing regressions for the `status`, `progress`, `repeats`, `started_at`, `finished_at` fields), you must explicitly configure those protections in v2 to avoid unintended updates.
+
+    The equivalent of the v1 default behavior in v2 would look like this:
+
+    ```yaml
+    global_config:
+      sync_fields:
+        status:
+          _lt: false
+        progress:
+          _lt: false
+        repeats:
+          _lt: false
+        started_at:
+          _lt: false
+        finished_at:
+          _lt: false
+    ```
 
 ## Database
 

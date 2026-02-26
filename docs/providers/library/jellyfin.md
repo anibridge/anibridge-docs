@@ -53,10 +53,20 @@ When enabled, show/season/episode mappings are restricted to the section's highe
 
 ## Webhooks
 
-The Jellyfin provider supports webhooks for automatic synchronization on activity. To set up webhooks, install and configure the [jellyfin-webhook-plugin](https://github.com/anibridge/jellyfin-webhook-plugin) to send webhook requests to your AniBridge instance at the following URL:
+The Jellyfin provider supports webhooks for automatic synchronization on activity. To set up webhooks, install and configure the [jellyfin-webhook-plugin](https://github.com/anibridge/jellyfin-webhook-plugin).
+
+Use the 'Generic Webhook' type and set the URL to:
 
 ```
 http://<your-server-host>:<port>/webhook/jellyfin
 ```
 
-Use the 'Generic Webhook' type and set the trigger events to 'Library Item Added' and 'Library Item Updated' for `Item Added`, `Playback Stopped`, and `User Data Saved`.
+Configure the following settings:
+
+- Notification Type: 'Item Added', 'Playback Stop', 'User Data Saved'
+- Item Type: 'Movies', 'Episodes', 'Seasons', 'Series', 'Send All Properties'
+- User Filter: (optional) restrict to specific users by username or user id
+
+!!! tip "User Filter"
+
+    If you have multiple users, you can use the 'User Filter' to prevent unecessary webhooks from being sent for other users. Not doing so won't change functionality, but may result in more webhooks being sent than necessary and thus more load on the server.

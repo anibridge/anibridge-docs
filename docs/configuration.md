@@ -59,7 +59,7 @@ Specifies the list provider to use (e.g., `anilist`, `mal`).
 Determines the triggers for scanning:
 
 - `periodic`: Scan all items at the specified [scan interval](#scan_interval).
-- `poll`: Poll for changes every 30 seconds, making incremental updates.
+- `poll`: Poll for incremental changes at the specified [scan interval](#poll_interval).
 - `webhook`: Trigger scans via webhook payloads from the library provider.
 
 Setting `scan_modes` to `None` or an empty list will cause the application to perform a single scan on startup and then exit.
@@ -82,9 +82,21 @@ By default, all three modes are enabled, allowing for instant, incremental updat
 
 `int` (Optional, default: `86400`)
 
-Interval in seconds to sync when using the `periodic` [scan mode](#scan_modes)
+Interval in seconds to sync when using the `periodic` [scan mode](#scan_modes).
 
 ---
+
+### `poll_interval`
+
+`int` (Optional, default: `60`)
+
+Interval in seconds to poll for changes when using the `poll` [scan mode](#scan_modes).
+
+Polling is designed to be a lightweight way to keep your list provider up-to-date with just recent watch activity. It only checks for changes since the last successful sync and is not intended to be a complete scan of the entire library.
+
+!!! info "The first poll"
+
+    On the first run, polling will perform a regular periodic scan to establish a baseline. Subsequent polls will only check for changes since the last successful sync.
 
 ### `full_scan`
 

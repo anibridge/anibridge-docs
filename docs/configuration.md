@@ -137,7 +137,11 @@ Allows empty list entry creation, i.e., creating entries for every scanned item,
 
 `dict[SyncField, bool | dict[str, bool]] ` (Optional, default: `{"review": false, "user_rating": false}`)
 
-Allows defining granular sync behavior on a per-field basis. It allows for completely disabling syncing of specific fields or configuring them to only sync using comparison operators. Available `SyncField` options are:
+Allows defining granular sync behavior on a per-field basis. It allows for completely disabling syncing of specific fields or configuring them to only sync using comparison operators.
+
+Note that undefined fields are implicitly enabled (i.e., if a field is not listed in `sync_fields`, it will be synced by default).
+
+Available `SyncField` options are:
 
 - `status` Watch status (watching, completed, etc.)
 - `progress` Number of episodes/movies watched
@@ -463,7 +467,11 @@ profiles:
     list_provider_config:
       anilist:
         token: "gHt..."
-    excluded_sync_fields: ["review", "user_rating", "started_at", "finished_at"]
+    sync_fields:
+      review: false
+      user_rating: false
+      started_at: false
+      finished_at: false
 ```
 
 ### Per-section Profiles
@@ -494,7 +502,7 @@ profiles:
     full_scan: true
     destructive_sync: true
     scan_interval: 1800
-    excluded_sync_fields: []
+    sync_fields: {} # Sync all fields (undefined is enabled)
   # For shows, use the built-in defaults
   shows:
     library_provider_config:

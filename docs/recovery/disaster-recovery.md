@@ -19,7 +19,7 @@ Each profile has its own subdirectory within `backups`. The backup filenames fol
 data/
 └── backups/
     └── profile/
-        └── anibridge_profile_anilist_20251129212551.json
+        └── anibridge_{profile}_{provider}_20251129212551.json
 ```
 
 You can view or restore these back ups through the web UI's [backups page](../web/backups.md).
@@ -33,16 +33,16 @@ You can view or restore these back ups through the web UI's [backups page](../we
 1. Open the Web UI and navigate to: Backups → select a profile.
 2. You will see a table of recent backups (filename, created time, size, age, detected user if available).
 3. Click Preview to open a highlighted JSON view (no data is changed).
-4. Click Restore to apply that snapshot back to AniList for the profile.
+4. Click Restore to apply that snapshot back to the list provider for the profile.
 5. A toast will indicate success; any individual sync outcomes will appear later on the timeline.
 
 !!! danger
 
-    Initiating a restore will **overwrite all current AniList entries** for that profile.
+    Initiating a restore will **overwrite all backed-up list provider entries** for that profile. However it will not delete any list entries that were created after the backup was taken.
 
 ## Undoing Individual Sync Changes
 
-In addition to full restores, you can undo specific sync operations directly from the Timeline page.
+In addition to full restores, you can undo specific sync operations directly from the [timeline page](../web/timeline.md).
 
 Each timeline entry representing a change (e.g. a creation, update, or deletion) exposes an Undo button when it is logically reversible. When clicked, AniBridge applies an inverse operation to restore the previous state and creates a new timeline entry marked as `undone`.
 

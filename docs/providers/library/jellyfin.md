@@ -53,7 +53,7 @@ When enabled, show/season/episode mappings are restricted to the section's highe
 
 ## Webhooks
 
-The Jellyfin provider supports webhooks for automatic synchronization on activity. To set up webhooks, install and configure the [jellyfin-webhook-plugin](https://github.com/anibridge/jellyfin-webhook-plugin).
+The Jellyfin provider supports webhooks for automatic synchronization on activity. To set up webhooks, install and configure the [jellyfin-plugin-webhook](https://github.com/jellyfin/jellyfin-plugin-webhook).
 
 Use the 'Generic Webhook' type and set the URL to:
 

@@ -40,7 +40,7 @@ global_config:
 # provider_classes: []
 # web:
 #   enabled: true
-#   host: "0.0.0.0"
+#   host: ""
 #   port: 4848
 #   allow_config_without_auth: false
 #   basic_auth:

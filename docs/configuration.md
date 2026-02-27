@@ -324,7 +324,7 @@ Sets logging verbosity for the entire application.
 
 ### `mappings_url`
 
-`str` (Optional, default: `https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst`)
+`str` (Optional, default: `"https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst"`)
 
 URL to the upstream mappings source. This can be a JSON or YAML file, optionally compressed with [Zstandard](https://facebook.github.io/zstd/) (`*.zst`).
 
@@ -364,9 +364,13 @@ When enabled, the [web interface](./web/screenshots.md) is accessible.
 
 ### `web.host`
 
-`str` (Optional, default: `0.0.0.0`)
+`str` (Optional, default: `""`)
 
-The host address to bind the web interface to.
+The host address to bind the web interface to. E.g. `0.0.0.0` to listen on all IPv4 interfaces, `::` for all IPv6 interfaces, or `127.0.0.1` to only listen on localhost.
+
+!!! info "Dual Stack IPv4/IPv6"
+
+    To listen on both IPv4 and IPv6 interfaces, set this to an empty string `""`. This is the default behavior and is recommended for most users.
 
 ---
 
@@ -445,7 +449,7 @@ Providing an `htpasswd` file allows you to manage multiple users and rotate pass
 
 ### `web.basic_auth.realm`
 
-`str` (Optional, default: `AniBridge`)
+`str` (Optional, default: `"AniBridge"`)
 
 Realm label presented in the browser Basic Auth prompt and `WWW-Authenticate` response header.
 

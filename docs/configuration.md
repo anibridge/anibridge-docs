@@ -142,6 +142,18 @@ Allows empty list entry creation, i.e., creating entries for every scanned item,
 
 ---
 
+### `promote_rewatch`
+
+`bool` (Optional, default: `False`)
+
+When enabled, if a list entry already has the `completed` or `repeating` status and the computed library provider status is `current`, the computed status will be promoted to `repeating` instead of `current`.
+
+This prevents previously completed entries from being downgraded to current when the library provider has partial watch activity (i.e., the library reports you've never completed the show but are partway through it). It essentially treats the list status as the source of truth for whether you've completed the show before, and if you have, it won't let the computed status go back to `current`.
+
+Instead, the entry will be marked as `repeating` to indicate that you've rewatched it and are currently watching it again, preserving the fact that you've completed it in the past.
+
+---
+
 ### `sync_fields`
 
 `dict[SyncField, bool | dict[str, bool]] ` (Optional, default: `{"review": false, "user_rating": false}`)

@@ -262,12 +262,12 @@ The higher the value, the more strict the title matching. A value of `100` requi
 
 When enabled:
 
-- AniList data **is not modified**.
+- List entry data **is not modified**.
 - Logs show what changes **would** have been made.
 
 !!! success "First Run"
 
-    Run with `dry_run` enabled on first launch to preview changes without modifying your AniList data.
+    Run with `dry_run` enabled on first launch to preview changes without modifying your list data.
 
 ## Provider Settings
 

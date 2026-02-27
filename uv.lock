@@ -15,10 +15,10 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
-    { name = "anibridge-library-base", specifier = ">=0.2.0b1" },
-    { name = "anibridge-list-base", specifier = ">=0.2.0b1" },
-    { name = "mkdocstrings-python", specifier = ">=2.0.1" },
-    { name = "zensical", specifier = ">=0.0.20" },
+    { name = "anibridge-library-base", specifier = ">=0.2.0b5" },
+    { name = "anibridge-list-base", specifier = ">=0.2.0b6" },
+    { name = "mkdocstrings-python", specifier = ">=2.0.3" },
+    { name = "zensical", specifier = ">=0.0.24" },
 ]
 
 [[package]]

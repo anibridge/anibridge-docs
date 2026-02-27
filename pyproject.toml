@@ -20,8 +20,8 @@ classifiers = [
 ]
 
 dependencies = [
-  "anibridge-library-base>=0.2.0b1",
-  "anibridge-list-base>=0.2.0b1",
-  "mkdocstrings-python>=2.0.1",
-  "zensical>=0.0.20",
+  "anibridge-library-base>=0.2.0b5",
+  "anibridge-list-base>=0.2.0b6",
+  "mkdocstrings-python>=2.0.3",
+  "zensical>=0.0.24",
 ]

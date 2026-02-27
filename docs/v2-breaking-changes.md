@@ -114,7 +114,7 @@ AniBridge currently supports these built-in providers (with more planned):
 - Library providers: [Plex](./providers/library/plex.md) (`plex`), [Jellyfin](./providers/library/jellyfin.md) (`jellyfin`)
 - List providers: [AniList](./providers/list/anilist.md) (`anilist`), [MyAnimeList](./providers/list/mal.md) (`mal`)
 
-For advanced users: you can also load 3rd-party providers that implement the [library base](https://github.com/anibridge/anibridge-library-base) or [list base](https://github.com/anibridge/anibridge-list-base) by including the full Python module path in [`provider_modules`](./configuration.md#provider_modules). This opens up possibilities for custom or community-developed providers.
+For advanced users: you can also load 3rd-party providers that implement the [library base](https://github.com/anibridge/anibridge-library-base) or [list base](https://github.com/anibridge/anibridge-list-base) by including the full Python class path in [`provider_classes`](./configuration.md#provider_classes). This opens up possibilities for custom or community-developed providers.
 
 **Example for Plex-AniList:**
 

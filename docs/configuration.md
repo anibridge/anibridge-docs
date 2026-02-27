@@ -328,16 +328,16 @@ This option is only intended for advanced users who want to use their own upstre
 
 ---
 
-### `provider_modules`
+### `provider_classes`
 
 `list[str]` (Optional, default: `[]`)
 
-A list of provider modules to load. This is an advanced option to load additional library or list providers beyond the built-in options. Each module must be a [valid provider Python package](./providers/third-party/developers-guide.md) installed in the current environment.
+A list of Python provider class paths to load. This is an advanced option to load additional library or list providers beyond the built-in options. Each item should be a string in the format `module.submodule.ClassName` that points to a valid [`LibraryProvider`](./providers/third-party/library-provider-api.md#library-provider-api) or [`ListProvider`](./providers/third-party/list-provider-api.md#list-provider-api) subclass.
 
-For example, to load a hypothetical `my_custom_provider` module:
+For example, to load a hypothetical `MyCustomProvider` class from the `my_providers` module, you would set:
 
 ```yaml
-provider_modules: ["my_custom_provider"]
+provider_classes: ["my_providers.MyCustomProvider"]
 ```
 
 ---

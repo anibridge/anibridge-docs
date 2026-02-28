@@ -39,19 +39,16 @@ Below is an example mappings file. You can use [the JSON schema](https://github.
 
     AniBridge supports loading custom mappings from [Zstandard](https://facebook.github.io/zstd/) compressed files with the `.zst` extension. This is useful for reducing file size when dealing with large mapping files.
 
-## Local Custom Mappings
+## Local Mappings
 
 AniBridge will look for a custom mappings file with the name `mappings.(json|yaml|yml)(.zst)?` in the `$AB_DATA_PATH` directory (defaults to `./data`). The file extension determines the format of the file (YAML or JSON).
 
-## Community Custom Mappings
-
-There are community maintained mappings repositories that you can use to get pre-made mappings for your content. You can include these mappings in your custom mappings file using the `$includes` key as explained above.
-
-- <a href="https://github.com/LuceoEtzio/AniBridge-Custom-Mappings">
-    <img src="https://avatars.githubusercontent.com/u/40282884?s=24&v=4" alt="LuceoEtzio" style="margin-right: 4px; border-radius: 50%; vertical-align: middle;">
-    <span>LuceoEtzio/AniBridge-Custom-Mappings</span>
-  </a>
-
-## Default Mappings
+## Community Mappings
 
 If you want to contribute your custom mappings to the community, you can submit a pull request to the [anibridge-mappings](https://github.com/anibridge/anibridge-mappings) repository. Your pull request should modify the [`mappings.edits.yaml`](https://github.com/anibridge/anibridge-mappings/blob/HEAD/mappings.edits.yaml) file.
+
+## Special Thanks
+
+Special thanks to [@LuceoEtzio](https://github.com/LuceoEtzio) for being the #1 contributor of the community mappings. His **4k+** contributions are the reason AniBridge works.
+
+<img src="https://avatars.githubusercontent.com/u/40282884?s=64&v=4" alt="LuceoEtzio" style="margin-right: 4px; border-radius: 50%; vertical-align: middle;">

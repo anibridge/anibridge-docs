@@ -10,7 +10,7 @@
 global_config:
   library_provider: ...
   list_provider: ...
-  # scan_modes: ["periodic", "poll", "webhook"]
+  # scan_modes: [periodic, poll, webhook]
   # scan_interval: 86400
   # full_scan: false
   # destructive_sync: false
@@ -25,8 +25,8 @@ global_config:
   # dry_run: false
 
   #== Provider Settings ==#
-  library_provider_config: ... # Refer to provider-specific configuration documentation
-  list_provider_config: ... # Refer to provider-specific configuration documentation
+  library_provider_config: {} # Refer to provider-specific configuration documentation
+  list_provider_config: {} # Refer to provider-specific configuration documentation
 
 
 #== Profile Settings ==#
@@ -35,7 +35,7 @@ global_config:
 #         $field: $value
 
 #== App Settings ==#
-# log_level: "INFO"
+# log_level: INFO
 # mappings_url: "https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst"
 # provider_classes: []
 # web:

@@ -72,12 +72,12 @@ Tatulli's webhooks setup is a bit more involved, but it allows you to achieve si
 1. After installing and setting up Tautulli, navigate to "Settings" > "Notification Agents" in the Tautulli web interface.
 2. Click "Add a new notification agent" and select "Webhook" as the notification type.
 3. Under the "Configuration" tab:
-   - Configure the "Webhook URL" to your AniBridge instance at the following URL: `http://<your-server-host>:<port>/webhook/plex?format=tautulli`.
-   - Configure the "Webhook Method" to `POST`.
+    - Configure the "Webhook URL" to your AniBridge instance at the following URL: `http://<your-server-host>:<port>/webhook/plex?format=tautulli`.
+    - Configure the "Webhook Method" to `POST`.
 4. Under the "Triggers" tab, select:
-   - "Playback Stop"
-   - "Watched"
-   - "Recently Added"
+    - "Playback Stop"
+    - "Watched"
+    - "Recently Added"
 5. Under the "Data" tab configure the following "JSON Data" template for every trigger you selected in [4]:
 
    ```json

@@ -40,7 +40,7 @@ the `global_config` key.
 
 `str`
 
-Specifies the media library provider to use (e.g., `plex`, `jellyfin`).
+Specifies the media library provider to use (e.g., `plex`, `jellyfin`, `emby`).
 
 ---
 
@@ -340,14 +340,15 @@ Each provider may consume additional configuration options. Refer to the documen
 
 <div class="grid cards" markdown>
   - [:simple-plex: Plex](./providers/library/plex.md){: style="text-decoration: none; color: #e5a00d" }
-  - [:simple-jellyfin: Jellyfin](./providers/library/jellyfin.md){: style="text-decoration: none; color: #AA5CC3" }
+  - [:simple-jellyfin: Jellyfin](./providers/library/jellyfin.md){: style="text-decoration: none; color: #aa5cc3" }
+  - [:simple-emby: Emby](./providers/library/emby.md){: style="text-decoration: none; color: #52b54b" }
   - [:simple-anilist: AniList](./providers/list/anilist.md){: style="text-decoration: none; color: #1da1f2" }
   - [:simple-myanimelist: MyAnimeList](./providers/list/mal.md){: style="text-decoration: none; color: #2e51a2" }
 </div>
 
 ### library_provider_config
 
-This is a dictionary where each key is the namespace of a library provider (e.g., `plex`, `jellyfin`), and the value is another dictionary containing configuration options that will be passed to that provider.
+This is a dictionary where each key is the namespace of a library provider (e.g., `plex`, `jellyfin`, `emby`), and the value is another dictionary containing configuration options that will be passed to that provider.
 
 ```yaml
 library_provider_config:

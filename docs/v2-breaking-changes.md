@@ -184,13 +184,9 @@ anilist:1: # Specify the source descriptor (<provider>:<id><:optional scope>)
 
     The old format cannot be converted automatically due to the v2 schema requiring new data (both a source and target episode range).
 
-## Sync fields control
+## Sync rules
 
-In v1, users could set `excluded_sync_fields` to prevent certain fields from being synced. This option has been removed and superseded by `sync_fields` in v2.
-
-The sync_fields option provides granular, per-field control over how data is synchronized. You canl completely disable syncing for specific fields or allow syncing only under certain comparison conditions (e.g. only sync if old > new, only sync if new != x, etc.). This allows for much more flexible and powerful sync behavior compared to the all-or-nothing approach of `excluded_sync_fields`.
-
-You can read more about the new `sync_fields` option and its capabilities in the [configuration documentation](./configuration.md#sync_fields). Below is an example conversion of the old `excluded_sync_fields` to the new `sync_fields`:
+In v1, users could set `excluded_sync_fields` to prevent certain fields from being synced. In v2, this behavior is handled by `sync_rules`, which also provides additional granular control over how syncing operates on a per-field basis that you can read about [here](./configuration.md#sync_rules).
 
 <div class="grid" markdown>
 
@@ -203,14 +199,9 @@ global_config:
 ```yaml
 # v2 config
 global_config:
-  sync_fields: # Note that all fields are implictly true
+  sync_rules:
     status: false
-    score: false
-    # Below are some more advanced examples that weren't previously possible
-    # progress:
-    #   _lt: false # Don't sync progress if the new value is less than the old value (prevents regressions)
-    # status:
-    #   dropped: false # Don't sync if the new status is "dropped" (prevents unwanted drops)
+    user_rating: false
 ```
 
 </div>
@@ -225,13 +216,13 @@ In v1, the `destructive_sync` option controlled **both**:
 In v2, this behavior has been split for greater precision:
 
 - `destructive_sync` now only controls whether list entries can be deleted.
-- Regressive field updates are now managed exclusively through the new `sync_fields` configuration.
+- Regressive field updates are now managed exclusively through `sync_rules`.
 
 This separation gives users more precise control. You can now prevent regressions on specific fields (such as progress or status) without also enabling destructive deletions.
 
 !!! warning "Default behavior changes"
 
-    In v1, regressive updates were blocked by default. In v2, this is no longer the case and users must explicitly restrict regressions via `sync_fields`.
+    In v1, regressive updates were blocked by default. In v2, this is no longer the case and users must explicitly restrict regressions via `sync_rules`.
 
     If you previously relied on the v1 default behavior (preventing regressions for the `status`, `progress`, `repeats`, `started_at`, `finished_at` fields), you must explicitly configure those protections in v2 to avoid unintended updates.
 
@@ -239,17 +230,8 @@ This separation gives users more precise control. You can now prevent regression
 
     ```yaml
     global_config:
-      sync_fields:
-        status:
-          _lt: false
-        progress:
-          _lt: false
-        repeats:
-          _lt: false
-        started_at:
-          _lt: false
-        finished_at:
-          _lt: false
+      sync_rules:
+        templates: [prevent_regressions]
     ```
 
 ## Database

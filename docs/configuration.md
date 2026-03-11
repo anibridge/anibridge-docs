@@ -142,76 +142,141 @@ Allows empty list entry creation, i.e., creating entries for every scanned item,
 
 ---
 
-### `promote_rewatch`
+### `sync_rules`
 
-`bool` (Optional, default: `False`)
+`dict` (Optional, default: `{"templates": ["disable_user_rating_and_review"]}`)
 
-When enabled, if a list entry already has the `completed` or `repeating` status and the computed library provider status is `current`, the computed status will be promoted to `repeating` instead of `current`.
+Allows declarative scripting during sync outcome computation. You can disable sync for specific fields, block computed values from being applied, transform values before they are written, define reusable expressions under `sync_rules.vars`, and enable built-in presets with `sync_rules.templates`.
 
-This prevents previously completed entries from being downgraded to current when the library provider has partial watch activity (i.e., the library reports you've never completed the show but are partway through it). It essentially treats the list status as the source of truth for whether you've completed the show before, and if you have, it won't let the computed status go back to `current`.
+Each top-level key under `sync_rules` must be one of:
 
-Instead, the entry will be marked as `repeating` to indicate that you've rewatched it and are currently watching it again, preserving the fact that you've completed it in the past.
+- a `ListEntry` field: `status`, `progress`, `repeats`, `review`, `user_rating`, `started_at`, `finished_at`
+- `templates`, which enables built-in rule presets
+- `vars`, which defines reusable expressions
 
----
+??? question "Disabling a field"
 
-### `sync_fields`
-
-`dict[SyncField, bool | dict[str, bool]] ` (Optional, default: `{"review": false, "user_rating": false}`)
-
-Allows defining granular sync behavior on a per-field basis. It allows for completely disabling syncing of specific fields or configuring them to only sync using comparison operators.
-
-Note that undefined fields are implicitly enabled (i.e., if a field is not listed in `sync_fields`, it will be synced by default).
-
-Available `SyncField` options are:
-
-- `status` Watch status (watching, completed, etc.)
-- `progress` Number of episodes/movies watched
-- `repeats` Number of times rewatched
-- `review` User's review/comments (text)
-- `user_rating` User's rating/score
-- `started_at` When the user started watching (date)
-- `finished_at` When the user finished watching (date)
-
-To completely disable syncing of a field, set its value to `false`:
-
-```yaml
-sync_fields:
-  review: false
-  user_rating: false
-```
-
-For more granular control, you have access to the following comparison operators: `_lt`, `_lte`, `_gt`, `_gte`, `_eq`, `_ne`, and direct value comparison (e.g., `dropped: false` to disallow changing status to "dropped"). These operators compare the library provider's value with the list provider's value before deciding whether to sync.
-
-```yaml
-sync_fields:
-  progress:
-    _lt: false # Don't allow decreasing progress (e.g., from 5 episodes watched to 4)
-  started_at:
-    _gt: false # Don't allow changing the start date to a later date
-  status:
-    dropped: false # Don't allow changing status to "dropped"
-```
-
-!!! tip "Allowing All Fields"
-
-    The `review` and `user_rating` fields are disabled by default to prevent accidental overwriting of existing reviews and ratings.
-
-    To sync all fields, set this to an empty dictionary: `{}`. All undefined fields are implicitly enabled.
-
-??? "Status Comparison Values"
-
-    See the available list status values [here](./providers/third-party/list-provider-api.md#anibridge.list.ListStatus).
-
-    If you want to disallow everything except `current` and `completed`, you can set:
+    To disable syncing of an entire field, set its value to `false`:
 
     ```yaml
-    sync_fields:
-      status:
-        dropped: false
-        paused: false
-        planning: false
-        repeating: false
+    sync_rules:
+      review: false
+      user_rating: false
     ```
+
+??? question "Available templates"
+
+    Available templates include:
+
+    - `disable_dropped_and_paused`: translates computed `dropped` and `paused` statuses to `current`
+    - `disable_user_rating_and_review`: prevents `user_rating` and `review` from syncing
+    - `prevent_regressions`: prevents syncing a "lower" value for `status`, `progress`, `repeats`, `finished_at`, and `started_at`
+    - `promote_rewatch`: if the current status is `repeating` or `completed` and the computed status is `current`, promotes the computed status to `repeating`
+
+    **Usage example:**
+
+    ```yaml
+    sync_rules:
+      templates: [prevent_regressions, promote_rewatch]
+    ```
+
+    _Note: templates are applied before any field-specific rules, so you can use them as a base and then override or extend their behavior with your own rules._
+
+??? question "Custom rules"
+
+    For more advanced behavior, you can define custom rules for a field as a list of dictionaries with `if` conditions and `set` transformations.
+
+    Rule behavior:
+
+    - `if` is optional; if omitted, the rule always matches
+    - `set` is optional; if omitted, the computed value is used unchanged
+    - rules are evaluated in order
+    - the last matching rule wins
+    - if a field has rules and none match, the field is blocked from syncing
+
+    ```yaml
+    sync_rules:
+      vars:
+        has_review: computed.review is not None and len(computed.review) > 0
+        is_review_long: vars.has_review and len(computed.review) > 200
+
+      status:
+        - name: Promote rewatch to repeating
+          if: current.status in ("repeating", "completed") and computed.status == "current"
+          set: repeating
+        - name: Disable the planning status
+          if: computed.status == "planning"
+          set: current.status
+
+      finished_at:
+        - name: Offset finished_at by one hour
+          if: computed.finished_at is not None
+          set: computed.finished_at.replace(hour=computed.finished_at.hour + 1)
+
+      review:
+        - name: Truncate long reviews
+          if: vars.is_review_long
+          set: computed.review[:197] + "..."
+        - name: Only sync review if it exists and is not empty
+          if: vars.has_review and not vars.is_review_long
+    ```
+
+??? question "Variables"
+
+    The `vars` key lets you define reusable expressions once and reference them from multiple rules.
+
+    ```yaml
+    sync_rules:
+      vars:
+        has_review: computed.review is not None and len(computed.review) > 0
+        is_rewatch: current.status in ("completed", "repeating")
+
+      review:
+        - if: vars.has_review
+    ```
+
+??? question "Expression environment"
+
+    Expressions are validated with AST checks and run in a semi-sandboxed Python environment.
+
+    Available variables:
+
+    - `current`: the list entry state before AniBridge makes changes
+    - `computed`: the list entry state AniBridge computed for the sync
+    - `vars`: values declared under `sync_rules.vars`
+    - `ctx`: additional sync context
+
+    Available `ListEntry` fields:
+    - `progress`
+    - `repeats`
+    - `review`
+    - `status`
+    - `user_rating`
+    - `finished_at`
+    - `started_at`
+
+    `ctx` currently exposes:
+    - `ctx.list_media_key`
+    - `ctx.item`
+    - `ctx.child`
+    - `ctx.grandchildren`
+
+    Safe built-ins:
+    - `abs`
+    - `all`
+    - `any`
+    - `bool`
+    - `date`
+    - `datetime`
+    - `float`
+    - `int`
+    - `len`
+    - `max`
+    - `min`
+    - `round`
+    - `str`
+    - `sum`
+    - `timedelta`
 
 ---
 
@@ -492,7 +557,7 @@ profiles:
     list_provider_config:
       anilist:
         token: "gHt..."
-    sync_fields:
+    sync_rules:
       review: false
       user_rating: false
       started_at: false
@@ -527,7 +592,6 @@ profiles:
     full_scan: true
     destructive_sync: true
     scan_interval: 1800
-    sync_fields: {} # Sync all fields (undefined is enabled)
   # For shows, use the built-in defaults
   shows:
     library_provider_config:

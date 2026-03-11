@@ -15,8 +15,8 @@ global_config:
   # full_scan: false
   # destructive_sync: false
   # empty_sync: false
-  # promote_rewatch: false
-  # sync_fields:
+  # sync_rules:
+  #   templates: [prevent_regressions]
   #   review: false
   #   user_rating: false
   # backup_retention_days: 30

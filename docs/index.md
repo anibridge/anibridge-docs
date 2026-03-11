@@ -12,12 +12,12 @@ The smart way to keep your anime lists perfectly synchronized.
 
 AniBridge is a media synchronization tool designed to keep your activity synchronized across different media viewing and tracking platforms. With its [mappings database](https://github.com/anibridge/anibridge-mappings) of over 60K entries tailored specifically for anime titles, AniBridge is particularly focused on anime content, however can be expanded to support more with [custom mappings](./mappings/custom-mappings.md).
 
-AniBridge has built-in support for popular platforms like [Plex](./providers/library/plex.md), [Jellyfin](./providers/library/jellyfin.md), [AniList](./providers/list/anilist.md), [MyAnimeList](./providers/list/mal.md), and can be extended to support additional providers through [third-party plugins](./providers/third-party/developers-guide.md)
+AniBridge has built-in support for popular platforms like [Plex](./providers/library/plex.md), [Jellyfin](./providers/library/jellyfin.md), [Emby](./providers/library/emby.md), [AniList](./providers/list/anilist.md), [MyAnimeList](./providers/list/mal.md), and can be extended to support additional providers through [third-party plugins](./providers/third-party/developers-guide.md)
 
 ## Key Features
 
 - **🔄 Comprehensive Synchronization**: Synchronizes watch status, progress, ratings, reviews, and start/completion dates between your anime library and list.
-- **🔗 Provider-Agnostic**: Supports multiple media library and anime list providers through a flexible plugin system (Plex, Jellyfin, AniList, MyAnimeList).
+- **🔗 Provider-Agnostic**: Supports multiple media library and anime list providers through a flexible plugin system (Plex, Jellyfin, Emby, AniList, MyAnimeList).
 - **🎯 Smart Content Matching**: Uses a curated mappings database with fuzzy title search fallback and support for custom mapping overrides.
 - **⚡ Optimized Performance**: Intelligent batch processing, rate limiting, and caching to minimize API usage while maximizing sync speed.
 - **👥 Multi-User & Multi-Profile**: Define multiple profiles to simultaneously synchronize different users, libraries, and servers with granular configuration.

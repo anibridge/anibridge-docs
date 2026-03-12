@@ -94,10 +94,6 @@ Interval in seconds to poll for changes when using the `poll` [scan mode](#scan_
 
 Polling is designed to be a lightweight way to keep your list provider up-to-date with just recent watch activity. It only checks for changes since the last successful sync and is not intended to be a complete scan of the entire library.
 
-!!! info "The first poll"
-
-    On the first run, polling will perform a regular periodic scan to establish a baseline. Subsequent polls will only check for changes since the last successful sync.
-
 ### `full_scan`
 
 `bool` (Optional, default: `False`)

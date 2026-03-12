@@ -7,7 +7,11 @@ icon: material/cog
 AniBridge reads configuration from a YAML file named `config.yaml` that lives
 inside the data directory `$AB_DATA_PATH` (defaults to `./data`).
 
-A [config editor](./web/settings.md) is also available through the web UI.
+A config editor is also available through the web UI.
+
+!!! tip
+
+    This documentation may seem long, but most of the options have sane defaults and can be left unset. The only required settings are the `library_provider` and `list_provider` for each profile (and their corresponding `library_provider_config` and `list_provider_config`). You can start with a minimal config and then customize additional options as needed.
 
 ## Example
 
@@ -38,7 +42,7 @@ the `global_config` key.
 
 ### `library_provider`
 
-`str`
+`str` (required)
 
 Specifies the media library provider to use (e.g., `plex`, `jellyfin`, `emby`).
 
@@ -46,7 +50,7 @@ Specifies the media library provider to use (e.g., `plex`, `jellyfin`, `emby`).
 
 ### `list_provider`
 
-`str`
+`str` (required)
 
 Specifies the list provider to use (e.g., `anilist`, `mal`).
 
@@ -54,7 +58,7 @@ Specifies the list provider to use (e.g., `anilist`, `mal`).
 
 ### `scan_modes`
 
-`list[Enum("periodic", "poll", "webhook")]` (Optional, default: `["periodic", "poll", "webhook"]`)
+`list[Enum("periodic", "poll", "webhook")]` (optional, default: `[periodic, poll, webhook]`)
 
 Determines the triggers for scanning:
 
@@ -80,7 +84,7 @@ By default, all three modes are enabled, allowing for instant, incremental updat
 
 ### `scan_interval`
 
-`int` (Optional, default: `86400`)
+`int` (optional, default: `86400`)
 
 Interval in seconds to sync when using the `periodic` [scan mode](#scan_modes).
 
@@ -88,7 +92,7 @@ Interval in seconds to sync when using the `periodic` [scan mode](#scan_modes).
 
 ### `poll_interval`
 
-`int` (Optional, default: `60`)
+`int` (optional, default: `60`)
 
 Interval in seconds to poll for changes when using the `poll` [scan mode](#scan_modes).
 
@@ -96,7 +100,7 @@ Polling is designed to be a lightweight way to keep your list provider up-to-dat
 
 ### `full_scan`
 
-`bool` (Optional, default: `False`)
+`bool` (optional, default: `False`)
 
 When enabled, the scan process will include all items, regardless of watch activity. By default, only watched items are scanned.
 
@@ -110,7 +114,7 @@ When enabled, the scan process will include all items, regardless of watch activ
 
 ### `destructive_sync`
 
-`bool` (Optional, default: `False`)
+`bool` (optional, default: `False`)
 
 Allows list entry deletions.
 
@@ -126,7 +130,7 @@ Allows list entry deletions.
 
 ### `empty_sync`
 
-`bool` (Optional, default: `False`)
+`bool` (optional, default: `False`)
 
 Allows empty list entry creation, i.e., creating entries for every scanned item, even if they have no watch activity. This is helpful if you want to have a complete mirror of your library on the list provider, including unwatched items. The 'planning' status will be applied to these no-activity entries.
 
@@ -140,7 +144,7 @@ Allows empty list entry creation, i.e., creating entries for every scanned item,
 
 ### `sync_rules`
 
-`dict` (Optional, default: `{"templates": ["disable_user_rating_and_review"]}`)
+`dict` (optional, default: `{"templates": ["disable_user_rating_and_review"]}`)
 
 Allows declarative scripting during sync outcome computation. You can disable sync for specific fields, block computed values from being applied, transform values before they are written, define reusable expressions under `sync_rules.vars`, and enable built-in presets with `sync_rules.templates`.
 
@@ -278,7 +282,7 @@ Each top-level key under `sync_rules` must be one of:
 
 ### `backup_retention_days`
 
-`int` (Optional, default: `30`)
+`int` (optional, default: `30`)
 
 Controls how many days AniBridge keeps AniList backup snapshots before pruning older files. Set to `0` to disable automatic cleanup and retain all backups indefinitely.
 
@@ -286,7 +290,7 @@ Controls how many days AniBridge keeps AniList backup snapshots before pruning o
 
 ### `batch_requests`
 
-`bool` (Optional, default: `False`)
+`bool` (optional, default: `False`)
 
 When enabled, AniList API requests are made in batches:
 
@@ -307,7 +311,7 @@ For example, if a sync job finds 10 items to update with `batch_requests` enable
 
 ### `search_fallback_threshold`
 
-`int` (Optional, default: `-1`)
+`int` (optional, default: `-1`)
 
 Determines how similar a title must be to the search query as a percentage to be considered a match.
 
@@ -319,7 +323,7 @@ The higher the value, the more strict the title matching. A value of `100` requi
 
 ### `dry_run`
 
-`bool` (Optional, default: `False`)
+`bool` (optional, default: `False`)
 
 When enabled:
 
@@ -370,7 +374,7 @@ These settings apply to the entire application and are not profile-specific.
 
 ### `log_level`
 
-`Enum("DEBUG", "INFO", "SUCCESS", "WARNING", "ERROR", "CRITICAL")` (Optional, default: `INFO`)
+`Enum("DEBUG", "INFO", "SUCCESS", "WARNING", "ERROR", "CRITICAL")` (optional, default: `INFO`)
 
 Sets logging verbosity for the entire application.
 
@@ -386,7 +390,7 @@ Sets logging verbosity for the entire application.
 
 ### `mappings_url`
 
-`str` (Optional, default: `"https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst"`)
+`str` (optional, default: `"https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst"`)
 
 URL to the upstream mappings source. This can be a JSON or YAML file, optionally compressed with [Zstandard](https://facebook.github.io/zstd/) (`*.zst`).
 
@@ -404,7 +408,7 @@ This option is only intended for advanced users who want to use their own upstre
 
 ### `provider_classes`
 
-`list[str]` (Optional, default: `[]`)
+`list[str]` (optional, default: `[]`)
 
 A list of Python provider class paths to load. This is an advanced option to load additional library or list providers beyond the built-in options. Each item should be a string in the format `module.submodule.ClassName` that points to a valid [`LibraryProvider`](./providers/third-party/library-provider-api.md#library-provider-api) or [`ListProvider`](./providers/third-party/list-provider-api.md#list-provider-api) subclass.
 
@@ -418,7 +422,7 @@ provider_classes: ["my_providers.MyCustomProvider"]
 
 ### `web.enabled`
 
-`bool` (Optional, default: `True`)
+`bool` (optional, default: `True`)
 
 When enabled, the [web interface](./web/screenshots.md) is accessible.
 
@@ -426,7 +430,7 @@ When enabled, the [web interface](./web/screenshots.md) is accessible.
 
 ### `web.host`
 
-`str` (Optional, default: `""`)
+`str` (optional, default: `""`)
 
 The host address to bind the web interface to. E.g. `0.0.0.0` to listen on all IPv4 interfaces, `::` for all IPv6 interfaces, or `127.0.0.1` to only listen on localhost.
 
@@ -438,7 +442,7 @@ The host address to bind the web interface to. E.g. `0.0.0.0` to listen on all I
 
 ### `web.port`
 
-`int` (Optional, default: `4848`)
+`int` (optional, default: `4848`)
 
 The port to bind the web interface to.
 
@@ -446,7 +450,7 @@ The port to bind the web interface to.
 
 ### `web.allow_config_without_auth`
 
-`bool` (Optional, default: `False`)
+`bool` (optional, default: `False`)
 
 When enabled, allows access to configuration endpoints without authentication. By default, the configuration endpoints (which contain read/write access to sensitive data) are disabled unless authentication is properly set up.
 
@@ -462,7 +466,7 @@ This option has no effect if basic authentication is enabled via `web.basic_auth
 
 ### `web.basic_auth.username`
 
-`str` (Optional, default: `None`)
+`str | None` (optional, default: `None`)
 
 HTTP Basic Authentication username for the web UI. Basic Auth is enabled only when both the username and password are provided (or an `htpasswd` file is used). Leave unset to disable authentication.
 
@@ -470,7 +474,7 @@ HTTP Basic Authentication username for the web UI. Basic Auth is enabled only wh
 
 ### `web.basic_auth.password`
 
-`str` (Optional, default: `None`)
+`str | None` (optional, default: `None`)
 
 HTTP Basic Authentication password for the web UI. Basic Auth is enabled only when both the username and password are provided (or an `htpasswd` file is used). Leave unset to disable authentication.
 
@@ -478,7 +482,7 @@ HTTP Basic Authentication password for the web UI. Basic Auth is enabled only wh
 
 ### `web.basic_auth.htpasswd_path`
 
-`str` (Optional, default: `None`)
+`str | None` (optional, default: `None`)
 
 Path to an [Apache `htpasswd`](https://httpd.apache.org/docs/current/programs/htpasswd.html) file containing user credentials for HTTP Basic Authentication. When set, the web UI validates requests against this file. Only **bcrypt** (recommended) and **SHA1** (insecure) hashed passwords are supported.
 
@@ -511,7 +515,7 @@ Providing an `htpasswd` file allows you to manage multiple users and rotate pass
 
 ### `web.basic_auth.realm`
 
-`str` (Optional, default: `"AniBridge"`)
+`str` (optional, default: `"AniBridge"`)
 
 Realm label presented in the browser Basic Auth prompt and `WWW-Authenticate` response header.
 

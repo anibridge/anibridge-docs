@@ -21,11 +21,15 @@ library_provider_config:
     # strict: true
 ```
 
-### `url` (`str`)
+### `url`
+
+`str` (required)
 
 The base URL of the Plex server (e.g., http://localhost:32400).
 
-### `token` (`str`)
+### `token`
+
+`str` (required)
 
 The account API token of the Plex server admin. Get a token by following [these instructions](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/).
 
@@ -33,21 +37,31 @@ The account API token of the Plex server admin. Get a token by following [these 
 
     The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your Plex account.
 
-### `user` (`str`)
+### `user`
+
+`str` (required)
 
 The Plex user to synchronize. This can be a username, email, or display name.
 
-### `sections` (`list[str]`, optional)
+### `sections`
+
+`list[str]` (optional, default: `[]`)
 
 A list of Plex library section names to constrain synchronization to. Leave empty/unset to include all sections.
 
-### `genres` (`list[str]`, optional)
+### `genres`
+
+`list[str]` (optional, default: `[]`)
 
 A list of genres to constrain synchronization to. Leave empty/unset to include all genres.
 
-### `strict` (`bool`, optional, default: `true`)
+### `strict`
+
+`bool` (optional, default: `True`)
 
 Whether to enforce strict matching when resolving mappings. If `true`, only exact mapping matches of a show's episode ordering (TMDB or TVDB) will be considered. If `false`, falling back from TMDB to TVDB (or vice versa) is allowed.
+
+You can configure episode ordering in the show's or section's 'Advanced' settings.
 
 ## Plex Webhooks
 

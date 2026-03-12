@@ -21,33 +21,43 @@ library_provider_config:
     # strict: true
 ```
 
-### `url` (`str`)
+### `url`
+
+`str` (required)
 
 The base URL of the Jellyfin server (e.g., http://localhost:8096).
 
-### `token` (`str`)
+### `token`
 
-The Jellyfin API token. You can generate this under the user settings in Jellyfin.
+`str` (required)
+
+The Jellyfin API token. You can generate this under your user settings in the Jellyfin admin dashboard.
 
 !!! danger
 
     The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your Jellyfin server.
 
-### `user` (`str`)
+### `user`
+
+`str` (required)
 
 The Jellyfin user to synchronize. This can be a user id, username, or display name.
 
-### `sections` (`list[str]`, optional)
+### `sections`
 
-A list of Jellyfin library section names to constrain synchronization to. Leave
-empty/unset to include all sections.
+`list[str]` (optional, default: `[]`)
 
-### `genres` (`list[str]`, optional)
+A list of Jellyfin library section names to constrain synchronization to. Leave empty/unset to include all sections.
 
-A list of genres to constrain synchronization to. Leave empty/unset to include all
-genres.
+### `genres`
 
-### `strict` (`bool`, optional)
+`list[str]` (optional, default: `[]`)
+
+A list of genres to constrain synchronization to. Leave empty/unset to include all genres.
+
+### `strict`
+
+`bool` (optional, default: `True`)
 
 When enabled, show/season/episode mappings are restricted to the section's highest-priority TV show metadata downloader from Jellyfin library options. For example, if the top TV metadata downloader is AniDB, only AniDB mapping descriptors will be considered for matching. When disabled, all metadata downloaders will be considered for matching. This option is enabled by default.
 

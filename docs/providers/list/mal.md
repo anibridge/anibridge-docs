@@ -17,7 +17,9 @@ list_provider_config:
 
 ## Configuration
 
-### `token` (`str`)
+### `token`
+
+`str` (required)
 
 Your MyAnimeList API refresh token.
 
@@ -33,6 +35,10 @@ Your MyAnimeList API refresh token.
 
     You are also able to specify your own client ID and CORS proxy server by clicking "Advanced Options" in the token generation dialog.
 
-### `client_id` (`str`, optional)
+    See the source code for the CORS proxy server at <https://github.com/anibridge/anibridge-cors-proxy>
+
+### `client_id`
+
+`str` (optional, default: `"b11a4e1ead0db8142268906b4bb676a4"`)
 
 Your MyAnimeList API client ID. This option is for advanced users who want to use their own client ID. If not provided, a default client ID managed by the AniBridge team will be used.

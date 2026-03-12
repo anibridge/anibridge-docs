@@ -21,34 +21,45 @@ library_provider_config:
     # strict: true
 ```
 
-### `url` (`str`)
+### `url`
+
+`str` (required)
 
 The base URL of the Emby server (e.g., http://localhost:8096).
 
-### `token` (`str`)
+### `token`
 
-The Emby API token. You can generate this under the user settings in Emby.
+`str` (required)
+
+The Emby API token. You can generate this under your user settings in the Emby admin dashboard.
 
 !!! danger
 
     The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your Emby server.
 
-### `user` (`str`)
+### `user`
+
+`str` (required)
 
 The Emby user to synchronize. This can be a user id, username, or display name.
 
-### `sections` (`list[str]`, optional)
+### `sections`
+
+`list[str]` (optional, default: `[]`)
 
 A list of Emby library section names to constrain synchronization to. Leave empty/unset to include all sections.
 
-### `genres` (`list[str]`, optional)
+### `genres`
 
-A list of genres to constrain synchronization to. Leave empty/unset to include all
-genres.
+`list[str]` (optional, default: `[]`)
 
-### `strict` (`bool`, optional)
+A list of genres to constrain synchronization to. Leave empty/unset to include all genres.
 
-When enabled, show/season/episode mappings are restricted to the section's highest-priority TV show metadata downloader from Emby library options. For example, if the top TV metadata downloader is AniDB, only AniDB mapping descriptors will be considered for matching. When disabled, all metadata downloaders will be considered for matching. This option is enabled by default.
+### `strict`
+
+`bool` (optional, default: `True`)
+
+When enabled, show/season/episode mappings are restricted to the section's highest-priority TV show metadata downloader from Jellyfin library options. For example, if the top TV metadata downloader is AniDB, only AniDB mapping descriptors will be considered for matching. When disabled, all metadata downloaders will be considered for matching. This option is enabled by default.
 
 ## Webhooks
 

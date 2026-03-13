@@ -168,7 +168,7 @@ Each top-level key under `sync_rules` must be one of:
 
     Available templates include:
 
-    - `disable_dropped_and_paused`: translates computed `dropped` and `paused` statuses to `current`
+    - `disable_dropped_and_paused`: if the computed status is `dropped` or `paused`, block syncing that field. However, if the current status was null, make the computed status set to `current` instead of blocking it
     - `disable_user_rating_and_review`: prevents `user_rating` and `review` from syncing
     - `prevent_regressions`: prevents syncing a "lower" value for `status`, `progress`, `repeats`, `finished_at`, and `started_at`
     - `promote_rewatch`: if the current status is `repeating` or `completed` and the computed status is `current`, promotes the computed status to `repeating`

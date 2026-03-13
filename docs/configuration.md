@@ -198,10 +198,6 @@ Each top-level key under `sync_rules` must be one of:
 
     ```yaml
     sync_rules:
-      vars:
-        has_review: computed.review is not None and len(computed.review) > 0
-        is_review_long: vars.has_review and len(computed.review) > 200
-
       status:
         - name: Promote rewatch to repeating
           if: current.status in ("repeating", "completed") and computed.status == "current"
@@ -214,14 +210,6 @@ Each top-level key under `sync_rules` must be one of:
         - name: Offset finished_at by one hour
           if: computed.finished_at is not None
           set: computed.finished_at.replace(hour=computed.finished_at.hour + 1)
-
-      review:
-        - name: Truncate long reviews
-          if: vars.is_review_long
-          set: computed.review[:197] + "..."
-        - name: Keep empty reviews cleared
-          if: not vars.has_review
-          set: null
     ```
 
 ??? question "Variables"
@@ -232,11 +220,15 @@ Each top-level key under `sync_rules` must be one of:
     sync_rules:
       vars:
         has_review: computed.review is not None and len(computed.review) > 0
-        is_rewatch: current.status in ("completed", "repeating")
+        is_review_long: vars.has_review and len(computed.review) > 200
 
       review:
-        - if: vars.has_review
-          set: computed.review
+        - name: Truncate long reviews
+          if: vars.is_review_long
+          set: computed.review[:197] + "..."
+        - name: Keep empty reviews cleared
+          if: not vars.has_review
+          set: null
     ```
 
 ??? question "Expression environment"

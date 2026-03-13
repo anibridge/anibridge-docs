@@ -146,7 +146,7 @@ Allows empty list entry creation, i.e., creating entries for every scanned item,
 
 `dict` (optional, default: `{"templates": ["disable_user_rating_and_review"]}`)
 
-Allows declarative scripting during sync outcome computation. You can disable sync for specific fields, block computed values from being applied, transform values before they are written, define reusable expressions under `sync_rules.vars`, and enable built-in presets with `sync_rules.templates`.
+Allows declarative scripting during sync outcome computation. You can disable sync for specific fields, prevent certain computed values from being applied, transform values before they are written, define reusable expressions under `sync_rules.vars`, and enable built-in presets with `sync_rules.templates`.
 
 Each top-level key under `sync_rules` must be one of:
 
@@ -164,13 +164,17 @@ Each top-level key under `sync_rules` must be one of:
       user_rating: false
     ```
 
-??? question "Available templates"
+??? question "Templates"
+
+    Templates are pre-defined rule presets for common sync behaviors. They are useful as a starting point, and can be combined with custom rules when you need more control.
+
+    Templates are applied in order. For a given field, user-defined rules are evaluated first, followed by template rules.
 
     Available templates include:
 
-    - `disable_dropped_and_paused`: if the computed status is `dropped` or `paused`, block syncing that field. However, if the current status was null, make the computed status set to `current` instead of blocking it
+    - `disable_dropped_and_paused`: if the computed status is `dropped` or `paused`, keep the current status instead. If there is no current status, use `current`
     - `disable_user_rating_and_review`: prevents `user_rating` and `review` from syncing
-    - `prevent_regressions`: prevents syncing a "lower" value for `status`, `progress`, `repeats`, `finished_at`, and `started_at`
+    - `prevent_regressions`: prevents syncing a lower value for `status`, `progress`, `repeats`, `finished_at`, and `started_at` by keeping the current value instead
     - `promote_rewatch`: if the current status is `repeating` or `completed` and the computed status is `current`, promotes the computed status to `repeating`
 
     **Usage example:**
@@ -180,19 +184,17 @@ Each top-level key under `sync_rules` must be one of:
       templates: [prevent_regressions, promote_rewatch]
     ```
 
-    _Note: templates are applied before any field-specific rules, so you can use them as a base and then override or extend their behavior with your own rules._
-
 ??? question "Custom rules"
 
     For more advanced behavior, you can define custom rules for a field as a list of dictionaries with `if` conditions and `set` transformations.
 
     Rule behavior:
 
-    - `if` is optional; if omitted, the rule always matches
-    - `set` is optional; if omitted, the computed value is used unchanged
-    - rules are evaluated in order
-    - the last matching rule wins
-    - if a field has rules and none match, the field is blocked from syncing
+    - `if` is optional and when omitted, the rule always matches (equivalent to `if: true`)
+    - `set` is required and defines the value to write when the rule matches
+    - Rules are evaluated in order
+    - The first matching rule wins
+    - If a field has rules and none match, the computed value is used unmodified
 
     ```yaml
     sync_rules:
@@ -204,7 +206,7 @@ Each top-level key under `sync_rules` must be one of:
         - name: Promote rewatch to repeating
           if: current.status in ("repeating", "completed") and computed.status == "current"
           set: repeating
-        - name: Disable the planning status
+        - name: Keep the current status for planning
           if: computed.status == "planning"
           set: current.status
 
@@ -217,8 +219,9 @@ Each top-level key under `sync_rules` must be one of:
         - name: Truncate long reviews
           if: vars.is_review_long
           set: computed.review[:197] + "..."
-        - name: Only sync review if it exists and is not empty
-          if: vars.has_review and not vars.is_review_long
+        - name: Keep empty reviews cleared
+          if: not vars.has_review
+          set: null
     ```
 
 ??? question "Variables"
@@ -233,6 +236,7 @@ Each top-level key under `sync_rules` must be one of:
 
       review:
         - if: vars.has_review
+          set: computed.review
     ```
 
 ??? question "Expression environment"

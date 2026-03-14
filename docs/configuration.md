@@ -152,17 +152,15 @@ Allows list entry creations with no watch activity. Empty syncs will use the 'pl
 
 `dict` (optional, default: `{"templates": ["disable_user_rating_and_review"]}`)
 
-Allows declarative scripting during sync outcome computation. You can disable sync for specific fields, prevent certain computed values from being applied, transform values before they are written, define reusable expressions under `sync_rules.vars`, and enable built-in presets with `sync_rules.templates`.
+Declaratively customize how sync results are calculated and applied on a per-field basis.
 
-Each top-level key under `sync_rules` must be one of:
+It can be used for simple customization like disabling a field, as well as more defining advanced rules with Python expressions if you need finer control. Templates are also available for common rule presets. Expand the sections below for different usage examples.
 
-- a `ListEntry` field: `status`, `progress`, `repeats`, `review`, `user_rating`, `started_at`, `finished_at`
-- `templates`, which enables built-in rule presets
-- `vars`, which defines reusable expressions
+??? example "Disabling a Field"
 
-??? question "Disabling a Field"
+    As a basic short-hand, you can disable syncing of an entire field by setting its value to `false`.
 
-    To disable syncing of an entire field, set its value to `false`:
+    **Usage example:**
 
     ```yaml
     sync_rules:
@@ -170,7 +168,11 @@ Each top-level key under `sync_rules` must be one of:
       user_rating: false
     ```
 
-??? question "Templates"
+    !!! tip "Performance Gains"
+
+        Disabling a field this way prevents it from being processed, which can lead to performance gains if the field is expensive to compute (e.g., requires additional API calls or complex logic).
+
+??? example "Templates"
 
     Templates are pre-defined rule presets for common sync behaviors. They are useful as a starting point, and can be combined with custom rules when you need more control.
 
@@ -190,9 +192,11 @@ Each top-level key under `sync_rules` must be one of:
       templates: [prevent_regressions, promote_rewatch]
     ```
 
-??? question "Custom Rules"
+??? example "Custom Rules"
 
     For more advanced behavior, you can define custom rules for a field as a list of dictionaries with `if` conditions and `set` transformations.
+
+    Rules are evaluated in order, and the first matching rule will determine the final value of the field. If no rules match, the computed value will be used unmodified.
 
     Rule behavior:
 
@@ -201,6 +205,12 @@ Each top-level key under `sync_rules` must be one of:
     - Rules are evaluated in order
     - The first matching rule wins
     - If a field has rules and none match, the computed value is used unmodified
+
+    !!! info "Expressions"
+
+        Both `if` and `set` are written as Python expressions with access to the `current`, `computed`, and `vars` namespaces. See the "Expression Environment" section below for more details on available variables and syntax.
+
+    **Usage example:**
 
     ```yaml
     sync_rules:
@@ -218,9 +228,11 @@ Each top-level key under `sync_rules` must be one of:
           set: computed.finished_at.replace(hour=computed.finished_at.hour + 1)
     ```
 
-??? question "Variables"
+??? example "Variables"
 
     The `vars` key lets you define reusable expressions once and reference them from multiple rules.
+
+    **Usage example:**
 
     ```yaml
     sync_rules:
@@ -237,7 +249,7 @@ Each top-level key under `sync_rules` must be one of:
           set: null
     ```
 
-??? question "Expression environment"
+??? abstract "Expression Environment"
 
     Expressions are validated with AST checks and run in a semi-sandboxed Python environment.
 

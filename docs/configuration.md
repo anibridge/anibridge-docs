@@ -104,11 +104,13 @@ Polling is designed to be a lightweight way to keep your list provider up-to-dat
 
 When enabled, the scan process will include all items, regardless of watch activity. By default, only watched items are scanned.
 
-!!! warning "Recommended Usage"
+!!! warning "Performance Warning"
 
-    Full scans are generally **not recommended** unless combined with [`destructive_sync`](#destructive_sync) to delete list provider entries for unwatched library provider content.
+    Enabling full scans will significantly increase API usage and scan times. Only enable this option if you have a specific need to.
 
-    Enabling `full_scan` can lead to **excessive API usage** and **longer processing times**.
+!!! note
+
+    Full scans will essentially be a no-op unless unless combined with [`empty_sync`](#empty_sync) or [`destructive_sync`](#destructive_sync).
 
 ---
 
@@ -124,7 +126,11 @@ Allows list entry deletions.
 
     Destructive sync allows for deleting list entries that have no watch activity.
 
-    When combined with `full_scan`, this can be used to mirror your library provider's content on the list provider, including removing entries for unwatched items. If `full_scan` is disabled, only library items with partial watch activity (e.g., watched a different season in the same show) may be deleted.
+!!! tip "Full Scans"
+
+    When combined with [`full_scan`](#full_scan), this can be used to mirror your library provider's content on the list provider, including removing entries for unwatched items.
+
+    If [`full_scan`](#full_scan) is disabled, only library items with partial watch activity (e.g., watched a different season in the same show) may be deleted.
 
 ---
 
@@ -132,13 +138,13 @@ Allows list entry deletions.
 
 `bool` (optional, default: `False`)
 
-Allows empty list entry creation, i.e., creating entries for every scanned item, even if they have no watch activity. This is helpful if you want to have a complete mirror of your library on the list provider, including unwatched items. The 'planning' status will be applied to these no-activity entries.
+Allows list entry creations with no watch activity. Empty syncs will use the 'planning' status by default.
 
 !!! tip
 
-    By default when [`full_scan`](#full_scan) is disabled, only entries where you have some related watch activity (e.g. watched a different season in the same show) will be synced, and empty entries will not be created for fully unwatched items.
+    When combined with [`full_scan`](#full_scan), this can be used to mirror your library provider's content on the list provider, including creating entries for unwatched items.
 
-    If you'd like to have entries created for every single item in your library, enable [`full_scan`](#full_scan) and `empty_sync`.
+    If [`full_scan`](#full_scan) is disabled, only library items with partial watch activity (e.g., watched a different season in the same show) may have empty entries created for them.
 
 ---
 
@@ -154,7 +160,7 @@ Each top-level key under `sync_rules` must be one of:
 - `templates`, which enables built-in rule presets
 - `vars`, which defines reusable expressions
 
-??? question "Disabling a field"
+??? question "Disabling a Field"
 
     To disable syncing of an entire field, set its value to `false`:
 
@@ -184,7 +190,7 @@ Each top-level key under `sync_rules` must be one of:
       templates: [prevent_regressions, promote_rewatch]
     ```
 
-??? question "Custom rules"
+??? question "Custom Rules"
 
     For more advanced behavior, you can define custom rules for a field as a list of dictionaries with `if` conditions and `set` transformations.
 
@@ -484,7 +490,7 @@ Path to an [Apache `htpasswd`](https://httpd.apache.org/docs/current/programs/ht
 
 Providing an `htpasswd` file allows you to manage multiple users and rotate passwords without exposing plaintext credentials in the configuration.
 
-!!! tip "Generate htpasswd entries"
+!!! tip "Generate htpasswd Entries"
 
     <div class="htpasswd-generator" data-htpasswd-generator>
       <form class="htpasswd-generator__grid" autocomplete="off" novalidate>

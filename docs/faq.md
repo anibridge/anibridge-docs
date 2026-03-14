@@ -28,6 +28,6 @@ AniBridge relies on your Plex server to provide accurate `viewCount` attributes 
 
 Certain actions can make the `viewCount` behave unexpectedly or become corrupted. Common causes include deleting and re-adding items, syncing play history across multiple devices, and manually marking an item as watched/unwatched.
 
-If you notice discrepancies in repeat counts, consider querying your Plex server directly to verify the `viewCount` values for specific items. If the counts are incorrect at the source, AniBridge will reflect those inaccuracies. See [#174](https://github.com/anibridge/anibrige/issues/174) for more details.
+If you notice discrepancies in repeat counts, consider querying your Plex server directly to verify the `viewCount` values for specific items. If the counts are incorrect at the source, AniBridge will reflect those inaccuracies. See [#174](https://github.com/anibridge/anibridge/issues/174) for more details.
 
 _Note: the `viewCount` attribute **is not** equivalent to the number of items under "View Play History" in the Plex UI._

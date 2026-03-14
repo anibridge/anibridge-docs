@@ -34,7 +34,7 @@ This page covers how to install and configure third-party provider classes, as w
 
 ## Build your own provider
 
-- **Start from the template**: [anibridge-provider-template](https://github.com/anibridge/anibridge-provider-template) ships minimal library and list providers you can rename and extend.
+- **Start by browsing the existing provider implementations**: Check out the [anibridge/anibridge-plex-provider](https://github.com/anibridge/anibridge-plex-provider) and [anibridge/anibridge-anilist-provider](https://github.com/anibridge/anibridge-anilist-provider) repositories for real implementation examples.
 - **Use the SDKs**: Base classes live in [anibridge-library-base](https://github.com/anibridge/anibridge-library-base) and [anibridge-list-base](https://github.com/anibridge/anibridge-list-base).
 - **Pick a namespace**: Define a `NAMESPACE` constant in your provider class. This is the value that users set in their profile's `library_provider` / `list_provider` field. It should be all lowercase and unique.
 - **Expose configuration**: Accept a `config: dict | None` in your provider `__init__` and document the keys (host URL, tokens, library filters, etc.).

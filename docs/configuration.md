@@ -4,8 +4,7 @@ icon: material/cog
 
 # Configuration
 
-AniBridge reads configuration from a YAML file named `config.yaml` that lives
-inside the data directory `$AB_DATA_PATH` (defaults to `./data`).
+AniBridge reads configuration from a YAML file named `config.yaml` that lives inside the AniBridge data directory. You can set the data path through the `$AB_DATA_PATH` environment variable (defaults to `./data`).
 
 A config editor is also available through the web UI.
 
@@ -23,14 +22,14 @@ A config editor is also available through the web UI.
 
 AniBridge supports having multiple, concurrently active profiles, each with its own set of configuration options. This allows you to sync different libraries or users with tailored settings.
 
-To simplify configuration management, settings can also be defined globally and shared across all profiles by defining them under the top-level `global_config` key.
+To simplify configuration management, settings can also be shared across all profiles by defining them under the top-level `global_config` key.
 
 To define profile-specific settings, use the `profiles` key in the configuration file with the profile name as a sub-key. Any settings defined under a profile will override the corresponding global settings for that profile.
 
-Settings are applied in the following order:
+Settings are applied with the following priority:
 
 1. **Profile-specific settings** (highest priority)
-2. **Global shared settings** (medium priority)
+2. **Global shared settings**
 3. **Built-in defaults** (lowest priority)
 
 For example, if `global_config.scan_interval` is defined as `900` and `profiles.personal.scan_interval` is defined as `1800`, the profile named `personal` will use the overridden value of `1800`. If `scan_interval` is not defined under either the profile or global settings, the built-in default of `86400` will be used.
@@ -38,7 +37,7 @@ For example, if `global_config.scan_interval` is defined as `900` and `profiles.
 ## Profile Configuration
 
 These settings can be defined per-profile under the `profiles` key or globally under
-the `global_config` key.
+the `global_config` key since they share the same schema.
 
 ### `library_provider`
 
@@ -104,13 +103,13 @@ Polling is designed to be a lightweight way to keep your list provider up-to-dat
 
 When enabled, the scan process will include all items, regardless of watch activity. By default, only watched items are scanned.
 
+!!! note "Full Scan Use Cases"
+
+    Full scans will essentially be a no-op unless unless combined with [`empty_sync`](#empty_sync) or [`destructive_sync`](#destructive_sync).
+
 !!! warning "Performance Warning"
 
     Enabling full scans will significantly increase API usage and scan times. Only enable this option if you have a specific need to.
-
-!!! note
-
-    Full scans will essentially be a no-op unless unless combined with [`empty_sync`](#empty_sync) or [`destructive_sync`](#destructive_sync).
 
 ---
 
@@ -118,19 +117,19 @@ When enabled, the scan process will include all items, regardless of watch activ
 
 `bool` (optional, default: `False`)
 
-Allows list entry deletions.
+Allows list entry deletions. When enabled, if an item has an existing list entry and no library watch activity, that entry will be deleted to reflect the unwatched status.
+
+??? tip "Full Scan Interaction"
+
+    If [`full_scan`](#full_scan) is disabled, destructive sync will only delete entries for items that have partial watch activity (e.g., watched a different season in the same show).
+
+    If you'd like to delete all unwatched entries, enable both `full_scan` and `destructive_sync`.
 
 !!! danger "Data Loss Warning"
 
     **Enable only if you understand the implications.**
 
     Destructive sync allows for deleting list entries that have no watch activity.
-
-!!! tip "Full Scans"
-
-    When combined with [`full_scan`](#full_scan), this can be used to mirror your library provider's content on the list provider, including removing entries for unwatched items.
-
-    If [`full_scan`](#full_scan) is disabled, only library items with partial watch activity (e.g., watched a different season in the same show) may be deleted.
 
 ---
 
@@ -140,11 +139,11 @@ Allows list entry deletions.
 
 Allows list entry creations with no watch activity. Empty syncs will use the 'planning' status by default.
 
-!!! tip
+??? tip "Full Scan Interaction"
 
-    When combined with [`full_scan`](#full_scan), this can be used to mirror your library provider's content on the list provider, including creating entries for unwatched items.
+    If [`full_scan`](#full_scan) is disabled, empty sync will only create entries for items that have partial watch activity (e.g., watched a different season in the same show).
 
-    If [`full_scan`](#full_scan) is disabled, only library items with partial watch activity (e.g., watched a different season in the same show) may have empty entries created for them.
+    If you'd like to create entries for all unwatched items, enable both `full_scan` and `empty_sync`.
 
 ---
 
@@ -154,7 +153,7 @@ Allows list entry creations with no watch activity. Empty syncs will use the 'pl
 
 Declaratively customize how sync results are calculated and applied on a per-field basis.
 
-It can be used for simple customization like disabling a field, as well as more defining advanced rules with Python expressions if you need finer control. Templates are also available for common rule presets. Expand the sections below for different usage examples.
+It can be used for simple customization like disabling a field, or for defining advanced rules with Python expressions when finer control in needed. Templates are also available for common rule presets. Expand the sections below for different usage examples.
 
 ??? example "Disabling a Field"
 
@@ -329,7 +328,7 @@ For example, if a sync job finds 10 items to update with `batch_requests` enable
 
 Determines how similar a title must be to the search query as a percentage to be considered a match.
 
-The default behavior is to disable searching completely and only rely on the [community and local mappings database](./mappings/custom-mappings.md).
+The default behavior (`-1`) is to disable searching completely and only rely on the [community and local mappings database](./mappings/custom-mappings.md).
 
 The higher the value, the more strict the title matching. A value of `100` requires an exact match, while `0` will match the first result returned by AniList, regardless of similarity.
 
@@ -384,7 +383,7 @@ list_provider_config:
 
 ## App Settings
 
-These settings apply to the entire application and are not profile-specific.
+These settings apply to the entire application and are not profile-specific. They are defined at the top level of the configuration file (not under `global_config` or `profiles`).
 
 ### `log_level`
 
@@ -431,6 +430,16 @@ For example, to load a hypothetical `MyCustomProvider` class from the `my_provid
 ```yaml
 provider_classes: ["my_providers.MyCustomProvider"]
 ```
+
+It is up to the user to ensure that the specified classes are available in the Python environment and that they adhere to the required provider interfaces. AniBridge will attempt to load and initialize these providers at startup, and any errors during loading will be logged.
+
+??? tip "Installing Providers in Docker"
+
+    If you're running AniBridge in Docker, the best way to install additional providers is to create a custom Docker image that inherits from the official AniBridge image and includes the necessary provider packages. However, as a quick-and-dirty alternative, you can also override the container's CMD to install the provider package at runtime before launching AniBridge. For example, if your provider is available on GitHub and can be installed via pip, you could use a command like this:
+
+    ```yaml
+    command: /bin/sh -c "pip install git+https://github.com/example/my_provider.git && python /app/main.py"
+    ```
 
 ---
 

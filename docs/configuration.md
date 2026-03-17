@@ -83,17 +83,17 @@ By default, all three modes are enabled, allowing for instant, incremental updat
 
 ### `scan_interval`
 
-`int` (optional, default: `86400`)
+`int | CronStr` (optional, default: `86400`)
 
-Interval in seconds to sync when using the `periodic` [scan mode](#scan_modes).
+Interval in seconds or a [cron string](https://crontab.guru/) to trigger periodic scans when using the `periodic` [scan mode](#scan_modes).
 
 ---
 
 ### `poll_interval`
 
-`int` (optional, default: `60`)
+`int | CronStr` (optional, default: `60`)
 
-Interval in seconds to poll for changes when using the `poll` [scan mode](#scan_modes).
+Interval in seconds or a [cron string](https://crontab.guru/) to poll for changes when using the `poll` [scan mode](#scan_modes).
 
 Polling is designed to be a lightweight way to keep your list provider up-to-date with just recent watch activity. It only checks for changes since the last successful sync and is not intended to be a complete scan of the entire library.
 

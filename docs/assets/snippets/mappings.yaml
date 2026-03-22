@@ -9,20 +9,17 @@ $includes:
   - "/path/to/another/mappings.json"
   - "./relative/path/to/another/mappings.json.zst"
 
-anidb:99999:R:
-  anilist:99999:
-    "1-12": "1-12"
-  mal:99999:
-    "1-12": "1-12"
-  tmdb_show:99999:s1:
+tvdb_show:88888:s1:
+  anilist:88888:
     "1-6": "1-6"
     "7-12": "7-12"
-  tvdb_show:99999:s1:
-    "1-12": "1-12"
+  mal:88888:
+    "1-6": "1-6"
+    "7-12": "7-12"
 
-tvdb_show:88888:s0:
-  anidb:88888:S:
+tmdb_show:77777:s0:
+  anilist:77777:
     "1": "1,3"
     "2": "2,4"
-  tmdb_show:88800:s0:
+  mal:77777:
     "1": "1"

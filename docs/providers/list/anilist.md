@@ -14,7 +14,6 @@ A list provider for [AniList](https://anilist.co/).
 list_provider_config:
   anilist:
     token: ...
-    # prefetch_list: false
 ```
 
 ### `token`
@@ -28,9 +27,3 @@ Your AniList API token.
 !!! danger
 
     The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your AniList account.
-
-### `prefetch_list`
-
-`bool` (optional, default: `False`)
-
-Whether to prefetch and cache the user's list on startup. It is recommended to keep this disabled if you have AniBridge backups enabled (the default behavior), as that performs an equivalent prefetch on startup anyway.

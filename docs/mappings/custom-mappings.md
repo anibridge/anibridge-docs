@@ -40,7 +40,7 @@ Below is an example mappings file. You can use [the JSON schema](https://github.
 
     It is important that the source key (in this case, `tvdb_show:12345:s1`) is valid for your library provider, and the target key (in this case, `anilist:67890`) is valid for the list provider you are using. If it is not, the mapping won't be used.
 
-    Mappings are not unidirectional, so ensure that you order your mappings correctly. For example, if you want to map to AniList, the target key should always be an AniList descriptor (e.g. `anilist:67890`), and the source key should be a descriptor from your library provider (e.g. `tvdb_show:12345:s1`).
+    Mappings are unidirectional, so ensure that you order your mappings correctly. For example, if you want to map to AniList, the target key should always be an AniList descriptor (e.g. `anilist:67890`), and the source key should be a descriptor from your library provider (e.g. `tvdb_show:12345:s1`).
 
 ??? example "Including Other Mapping Files"
 

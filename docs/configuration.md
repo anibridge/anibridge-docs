@@ -62,7 +62,7 @@ Specifies the list provider to use (e.g., `anilist`, `mal`).
 Determines the triggers for scanning:
 
 - `periodic`: Scan all items at the specified [scan interval](#scan_interval).
-- `poll`: Poll for incremental changes at the specified [scan interval](#poll_interval).
+- `poll`: Poll for incremental changes at the specified [poll interval](#poll_interval).
 - `webhook`: Trigger scans via webhook payloads from the library provider.
 
 Setting `scan_modes` to `None` or an empty list will cause the application to perform a single scan on startup and then exit.
@@ -305,7 +305,7 @@ Controls how many days AniBridge keeps AniList backup snapshots before pruning o
 
 `bool` (optional, default: `False`)
 
-When enabled, AniList API requests are made in batches:
+When enabled, list API requests are made in batches before and after syncing.
 
 1. Prior to syncing, a batch of requests is created to retrieve all the entries that will be worked on.
 2. Post-sync, a batch of requests is created to update all the entries that were changed.
@@ -313,6 +313,12 @@ When enabled, AniList API requests are made in batches:
 This can significantly reduce rate limiting, but at the cost of atomicity. If any request in the batch fails, the entire batch will fail.
 
 For example, if a sync job finds 10 items to update with `batch_requests` enabled, all 10 requests will be sent at once. If any of the requests fail, all 10 updates will fail.
+
+!!! note "List Provider Support"
+
+    Batch requests are only supported by list providers that implement the corresponding batch API methods. If a provider does not support batch requests, this setting will have negative effects on stability and performance.
+
+    Of the built-in providers, only AniList currently supports batch requests.
 
 !!! success "First Run"
 

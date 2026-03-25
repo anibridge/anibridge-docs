@@ -216,23 +216,7 @@ In v1, the `destructive_sync` option controlled **both**:
 In v2, this behavior has been split for greater precision:
 
 - `destructive_sync` now only controls whether list entries can be deleted.
-- Regressive field updates are now managed exclusively through `sync_rules`.
-
-This separation gives users more precise control. You can now prevent regressions on specific fields (such as progress or status) without also enabling destructive deletions.
-
-!!! warning "Default behavior changes"
-
-    In v1, regressive updates were blocked by default. In v2, this is no longer the case and users must explicitly restrict regressions via `sync_rules`.
-
-    If you previously relied on the v1 default behavior (preventing regressions for the `status`, `progress`, `repeats`, `started_at`, `finished_at` fields), you must explicitly configure those protections in v2 to avoid unintended updates.
-
-    The equivalent of the v1 default behavior in v2 would look like this:
-
-    ```yaml
-    global_config:
-      sync_rules:
-        templates: [prevent_regressions]
-    ```
+- Regressive field updates are now managed exclusively through `sync_rules`. There is a pre-defined `prevent_regressions` template that you can apply to mimic the old behavior `sync_rules: { templates: [prevent_regressions] }`. Alternatively, you can create custom rules to allow regressions on certain fields while preventing them on others, which was not possible in v1. Read more about this in the [sync rules documentation](./configuration.md#sync_rules).
 
 ## Database
 

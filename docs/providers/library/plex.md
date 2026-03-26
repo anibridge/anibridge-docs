@@ -31,7 +31,9 @@ The base URL of the Plex server (e.g., http://localhost:32400).
 
 `str` (required)
 
-The Plex authentication token for the target user being synchronized. Get a token by following [these instructions](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/).
+The Plex authentication token for the target user being synchronized.
+
+[:simple-plex: Generate a Plex API token](./plex?generate_token=plex){: .md-button style="background-color: #e5a00d; color: #1f1f1f; border-radius: 0.4em;"}
 
 !!! danger
 

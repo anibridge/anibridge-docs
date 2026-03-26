@@ -37,7 +37,7 @@ The Plex authentication token for the target user being synchronized. Get a toke
 
     The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your Plex account.
 
-### `user`
+### `home_user`
 
 `str` (optional, default: `None`)
 

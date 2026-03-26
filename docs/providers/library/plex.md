@@ -15,7 +15,7 @@ library_provider_config:
   plex:
     url: ...
     token: ...
-    user: ...
+    # home_user: ...
     # sections: []
     # genres: []
     # strict: true
@@ -31,7 +31,7 @@ The base URL of the Plex server (e.g., http://localhost:32400).
 
 `str` (required)
 
-The account API token of the Plex server admin. Get a token by following [these instructions](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/).
+The Plex authentication token for the target user being synchronized. Get a token by following [these instructions](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/).
 
 !!! danger
 
@@ -39,9 +39,11 @@ The account API token of the Plex server admin. Get a token by following [these 
 
 ### `user`
 
-`str` (required)
+`str` (optional, default: `None`)
 
-The Plex user to synchronize. This can be a username, email, or display name.
+Optional Plex Home user to use. If the token provided belongs to the user you want to synchronize, you can leave this unset.
+
+If set, the provider will attempt to switch to the specified Plex Home user using the Plex API. The account token provided must be the token of the Plex Home owner, otherwise the provider will fail to authenticate.
 
 ### `sections`
 
@@ -86,12 +88,12 @@ Tatulli's webhooks setup is a bit more involved, but it allows you to achieve si
 1. After installing and setting up Tautulli, navigate to "Settings" > "Notification Agents" in the Tautulli web interface.
 2. Click "Add a new notification agent" and select "Webhook" as the notification type.
 3. Under the "Configuration" tab:
-    - Configure the "Webhook URL" to your AniBridge instance at the following URL: `http://<your-server-host>:<port>/webhook/plex?format=tautulli`.
-    - Configure the "Webhook Method" to `POST`.
+   - Configure the "Webhook URL" to your AniBridge instance at the following URL: `http://<your-server-host>:<port>/webhook/plex?format=tautulli`.
+   - Configure the "Webhook Method" to `POST`.
 4. Under the "Triggers" tab, select:
-    - "Playback Stop"
-    - "Watched"
-    - "Recently Added"
+   - "Playback Stop"
+   - "Watched"
+   - "Recently Added"
 5. Under the "Data" tab configure the following "JSON Data" template for every trigger you selected in [4]:
 
    ```json

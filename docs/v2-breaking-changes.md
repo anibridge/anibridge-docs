@@ -127,8 +127,8 @@ profiles:
     plex_url: ...
     plex_token: ...
     plex_user: ...
-    plex_sections: []
-    plex_genres: []
+    # plex_sections: []
+    # plex_genres: []
     anilist_token: ...
 ```
 
@@ -142,13 +142,28 @@ profiles:
       plex:
         url: ...
         token: ...
-        user: ...
+        # home_user: ... # renamed from "user" and now only works for Plex Home users, see more details below
+        # sections: []
+        # genres: []
     list_provider_config:
       anilist:
         token: ...
 ```
 
 </div>
+
+### Plex user config changes
+
+The `plex_user` option from v1 has been renamed to `home_user` in v2 and its behavior has changed. In v1, this option was used to specify any Plex user to switch to after authenticating with the provided token. In v2, this option is specifically for switching between Plex Home users.
+
+This change was made due to a breaking change in the Plex API (read more [here](https://github.com/anibridge/anibridge-plex-provider/pull/4)). Authentication in v2 is split into two categories:
+
+1. **Standard authentication**: If `home_user` is not set, the provider will authenticate using the provided token and operate under that user. Unlike v1, you can now authenticate with any Plex user token, not just the Home owner (as long as the user has access to the Plex server).
+2. **Home user switching**: If `home_user` is set, the provider will first authenticate with the provided token (which must belong to the Plex Home owner), then attempt to switch to the specified Home user. If the token does not belong to the Home owner or if the specified user is not a valid Home user, authentication will fail.
+
+This change was made out of necessity due to the Plex API change, but it also provides more flexibility. Now, users can authenticate their personal accounts without needing their Plex Home owner's token.
+
+Additionally, prior to v2, non-owner users were unable to access certain Plex API features, including fetching watchlist status and user reviews from the Plex Community API. In v2, all users can access all features equally.
 
 ## Mapping schema
 

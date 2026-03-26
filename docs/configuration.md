@@ -561,7 +561,6 @@ global_config:
   list_provider: "anilist"
   library_provider_config:
     plex:
-      token: "EzF..."
       url: "http://localhost:32400"
   scan_modes: ["periodic"]
 
@@ -569,21 +568,23 @@ profiles:
   nitta:
     library_provider_config:
       plex:
-        user: "nitta32"
+        token: "EzF..."
     list_provider_config:
       anilist:
         token: "eYJ..."
   hina:
     library_provider_config:
       plex:
-        user: "hina_jp@gmail.com"
+        token: "Gd3..."
     list_provider_config:
       anilist:
         token: "sKf..."
   guest:
     library_provider_config:
       plex:
-        user: "Guest User"
+        # Using a Plex Home user with the owner's token
+        token: "EzF..."
+        home_user: "Home User"
     list_provider_config:
       anilist:
         token: "gHt..."
@@ -601,12 +602,12 @@ This example demonstrates configuring separate profiles for different Plex secti
 ```yaml
 # Global settings shared by all profiles
 global_config:
-  library_provider: "plex"
+  library_provider: "jellyfin"
   list_provider: "anilist"
   library_provider_config:
-    plex:
+    jellyfin:
       token: "EzF..."
-      user: "Kyomoto"
+      user: "takopi"
       url: "http://localhost:32400"
   list_provider_config:
     anilist:
@@ -617,7 +618,7 @@ profiles:
   # For movies, perform full, destructive scans every 30 minutes
   movies:
     library_provider_config:
-      plex:
+      jellyfin:
         sections: ["Anime Movies"]
     full_scan: true
     destructive_sync: true
@@ -625,7 +626,7 @@ profiles:
   # For shows, use the built-in defaults
   shows:
     library_provider_config:
-      plex:
+      jellyfin:
         sections: ["Anime"]
 ```
 

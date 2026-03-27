@@ -15,7 +15,7 @@ icon: material/wrench
 
 !!! tip
 
-    Have a look at [the configuration page](../configuration.md) for a detailed list of configurable environment variables.
+    Have a look at [the configuration page](../configuration.md) for a detailed list of configurable options.
 
 ```shell
 git clone https://github.com/anibridge/anibridge.git

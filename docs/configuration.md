@@ -167,6 +167,10 @@ It can be used for simple customization like disabling a field, or for defining 
       user_rating: false
     ```
 
+    !!! info "Available Fields"
+
+        Custom rules can be defined for any of the following fields: `status`, `progress`, `repeats`, `review`, `user_rating`, `finished_at`, and `started_at`.
+
     !!! tip "Performance Gains"
 
         Disabling a field this way prevents it from being processed, which can lead to performance gains if the field is expensive to compute (e.g., requires additional API calls or complex logic).
@@ -226,6 +230,10 @@ It can be used for simple customization like disabling a field, or for defining 
           if: computed.finished_at is not None
           set: computed.finished_at.replace(hour=computed.finished_at.hour + 1)
     ```
+
+    !!! info "Available Fields"
+
+        Custom rules can be defined for any of the following fields: `status`, `progress`, `repeats`, `review`, `user_rating`, `finished_at`, and `started_at`.
 
 ??? example "Variables"
 

@@ -2,6 +2,8 @@
 name = "anibridge-docs"
 version = "0.1.0"
 description = "Documentation for the AniBridge project."
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
 requires-python = ">=3.14"
 
@@ -15,7 +17,6 @@ maintainers = [
 classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.14",
-  "License :: OSI Approved :: MIT License",
   "Operating System :: OS Independent",
 ]
 

@@ -20,7 +20,7 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 
-dependencies = ["anibridge", "mkdocstrings-python>=2.0.3", "zensical>=0.0.24"]
+dependencies = ["anibridge", "mkdocstrings-python>=2.0.3", "zensical>=0.0.30"]
 
 [tool.uv.sources]
-anibridge = { git = "https://github.com/anibridge/anibridge.git", rev = "v2.1.0-beta.5" }
+anibridge = { git = "https://github.com/anibridge/anibridge.git", rev = "v2.1.0-beta.10" }

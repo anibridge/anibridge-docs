@@ -14,6 +14,7 @@ A list provider for [AniList](https://anilist.co/).
 list_provider_config:
   anilist:
     token: ...
+    # rate_limit: null
 ```
 
 ### `token`
@@ -27,3 +28,11 @@ Your AniList API token.
 !!! danger
 
     The token is sensitive and should be kept secret. Do not share it or expose it publicly, as it can be used to access and modify your AniList account.
+
+### `rate_limit`
+
+`int | None` (optional, default: `null`)
+
+The maximum number of API requests per minute.
+
+If unset or set to `null`, the provider will use a default _global_ rate limit of 30 requests per minute. It is important to note that this global rate limit is shared across all AniList provider instances, i.e. they collectively use 30 requests per minute. If you override the rate limit, a new rate limit, local to the provider instance, will be created.

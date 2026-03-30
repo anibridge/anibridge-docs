@@ -45,6 +45,8 @@ services:
     ...
 ```
 
+Unraid users: there's now an official CA template for v2, available under the name "AniBridge". See [the Unraid installation guide](./getting-started/unraid.md) for more details.
+
 </div>
 
 ## Configuration changes

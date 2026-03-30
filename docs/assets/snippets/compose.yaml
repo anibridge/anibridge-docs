@@ -11,5 +11,6 @@ services:
     ports:
       - 4848:4848
     # healthcheck:
-    #   test: ["CMD", "wget", "-q", "--spider", "http://localhost:4848/healthz"]
+    #   # Both `/livez` and `/readyz` endpoints are available
+    #   test: ["CMD", "wget", "-q", "--spider", "http://localhost:4848/livez"]
     restart: unless-stopped

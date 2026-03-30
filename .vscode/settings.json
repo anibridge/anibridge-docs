@@ -12,7 +12,6 @@
   "editor.formatOnSave": true,
   "editor.insertSpaces": true,
   "editor.tabSize": 2,
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-  "python.envFile": "",
-  "python.terminal.activateEnvInCurrentTerminal": true
+  "python.useEnvironmentsExtension": true,
+  "python.languageServer": "None"
 }

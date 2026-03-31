@@ -201,6 +201,10 @@ It can be used for simple customization like disabling a field, or for defining 
 
     Rules are evaluated in order, and the first matching rule will determine the final value of the field. If no rules match, the computed value will be used unmodified.
 
+    !!! info "Expressions"
+
+        Both `if` and `set` are written as Python expressions with access to the `current`, `computed`, and `vars` namespaces. See the "Expression Environment" section below for more details on available variables and syntax.
+
     Rule behavior:
 
     - `if` is optional and when omitted, the rule always matches (equivalent to `if: true`)
@@ -208,10 +212,6 @@ It can be used for simple customization like disabling a field, or for defining 
     - Rules are evaluated in order
     - The first matching rule wins
     - If a field has rules and none match, the computed value is used unmodified
-
-    !!! info "Expressions"
-
-        Both `if` and `set` are written as Python expressions with access to the `current`, `computed`, and `vars` namespaces. See the "Expression Environment" section below for more details on available variables and syntax.
 
     **Usage example:**
 
@@ -234,6 +234,10 @@ It can be used for simple customization like disabling a field, or for defining 
     !!! info "Available Fields"
 
         Custom rules can be defined for any of the following fields: `status`, `progress`, `repeats`, `review`, `user_rating`, `finished_at`, and `started_at`.
+
+    !!! failure "String Literals"
+
+        In most cases, the AST can infer whether an expression is meant to be a string literal or a variable reference. To be safe, it is recommended to wrap string literals in quotes (e.g., `"repeating"`) to avoid ambiguity with variable names.
 
 ??? example "Variables"
 

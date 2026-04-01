@@ -16,9 +16,15 @@ global_config:
   # destructive_sync: false
   # empty_sync: false
   # sync_rules:
-  #   templates: [prevent_regressions]
-  #   review: false
-  #   user_rating: false
+  #   templates: [disable_user_rating_and_review, prevent_regressions]
+  #   vars: {}
+  #   status: true
+  #   progress: true
+  #   repeats: true
+  #   review: true
+  #   user_rating: true
+  #   started_at: true
+  #   finished_at: true
   # backup_retention_days: 30
   # batch_requests: false
   # search_fallback_threshold: -1
@@ -31,8 +37,8 @@ global_config:
 
 #== Profile Settings ==#
 # profiles:
-#     example:
-#         $field: $value
+#   example:
+#     $field: $value
 
 #== App Settings ==#
 # log_level: INFO

@@ -233,7 +233,7 @@ In v1, the `destructive_sync` option controlled **both**:
 In v2, this behavior has been split for greater precision:
 
 - `destructive_sync` now only controls whether list entries can be deleted.
-- Regressive field updates are now managed exclusively through `sync_rules`. There is a pre-defined `prevent_regressions` template that you can apply to mimic the old behavior `sync_rules: { templates: [prevent_regressions] }`. Alternatively, you can create custom rules to allow regressions on certain fields while preventing them on others, which was not possible in v1. Read more about this in the [sync rules documentation](./configuration.md#sync_rules).
+- Regressive field updates are now managed exclusively through `sync_rules`. There is a pre-defined `prevent_regressions` template (applied by default) that mimics the old behavior. Alternatively, you can create custom rules to allow regressions on certain fields while preventing them on others, which was not possible in v1. Read more about this in the [sync rules documentation](./configuration.md#sync_rules).
 
 ## Database
 

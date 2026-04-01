@@ -149,7 +149,7 @@ Allows list entry creations with no watch activity. Empty syncs will use the 'pl
 
 ### `sync_rules`
 
-`dict` (optional, default: `{"templates": ["disable_user_rating_and_review"]}`)
+`dict` (optional, default: `{"templates": ["disable_user_rating_and_review", "prevent_regressions"]}`)
 
 Declaratively customize how sync results are calculated and applied on a per-field basis.
 

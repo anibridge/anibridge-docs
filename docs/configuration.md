@@ -453,11 +453,19 @@ It is up to the user to ensure that the specified classes are available in the P
 
 ??? tip "Installing Providers in Docker"
 
-    If you're running AniBridge in Docker, the best way to install additional providers is to create a custom Docker image that inherits from the official AniBridge image and includes the necessary provider packages. However, as a quick-and-dirty alternative, you can also override the container's CMD to install the provider package at runtime before launching AniBridge. For example, if your provider is available on GitHub and can be installed via pip, you could use a command like this:
+    If you're running AniBridge in Docker, the best way to install additional providers is to create a custom Docker image that inherits from the official AniBridge image and includes the necessary provider packages:
 
-    ```yaml
-    command: /bin/sh -c "pip install git+https://github.com/example/my_provider.git && python /app/main.py"
+    ```dockerfile
+    FROM ghcr.io/anibridge/anibridge:latest # Alpine-based image
+
+    # uv is the package manager used in the official image
+    COPY --from=ghcr.io/astral-sh/uv:0.11 /uv /uvx /bin/
+
+    # Install your custom provider package using uv
+    RUN uv pip install --python /opt/venv/bin/python git+https://github.com/example/my-custom-provider.git
     ```
+
+    Then, set `provider_classes` to the appropriate class path(s) for the providers you installed.
 
 ---
 

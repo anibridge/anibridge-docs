@@ -69,6 +69,8 @@ AniBridge will look for a custom mappings file with the name `mappings.(json|yam
 
 If you want to contribute your custom mappings to the community, you can submit a pull request to the [anibridge-mappings](https://github.com/anibridge/anibridge-mappings) repository. Your pull request should modify the [`mappings.edits.yaml`](https://github.com/anibridge/anibridge-mappings/blob/HEAD/mappings.edits.yaml) file.
 
+[LuceoEtzio/anibridge-custom-mappings](https://github.com/LuceoEtzio/anibridge-custom-mappings) is a repository maintained by [@LuceoEtzio](https://github.com/LuceoEtzio) that contains alternative order TMDB and TVDB show mappings (e.g. Absolute Order, DVD Order, etc.). Use the `$includes` feature to adopt these mappings into your setup.
+
 ## Special Thanks
 
 Special thanks to [@LuceoEtzio](https://github.com/LuceoEtzio) for being the #1 contributor of the community mappings. His **4k+** contributions are the reason AniBridge works.

@@ -309,7 +309,7 @@ It can be used for simple customization like disabling a field, or for defining 
 
 `int` (optional, default: `30`)
 
-Controls how many days AniBridge keeps AniList backup snapshots before pruning older files. Set to `0` to disable automatic cleanup and retain all backups indefinitely.
+Controls how many days AniBridge keeps backups of your list provider before pruning them. Set to `0` to disable automatic cleanup and retain all backups indefinitely.
 
 ---
 

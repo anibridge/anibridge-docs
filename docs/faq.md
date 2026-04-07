@@ -14,6 +14,14 @@ While AniBridge aims to cover as many titles as possible (and we are proud to sa
 
 If you find a title that is not mapped, please consider submitting a pull request to the [anibridge/anibridge-mappings](https://github.com/anibridge/anibridge-mappings) repository with your corrections or additions.
 
+## I've mapped X, so why is it still not found?
+
+If you've added a mapping for a title but it still isn't found, there are a few things to check:
+
+- Make sure the mapping flows in the correct direction (e.g. TVDB → AniList, not MAL → AniList).
+- Ensure the mapping shows up in the [mappings page](./web/mappings.md). If not, you might need to resynchronize your local mapping database.
+- Check your logs for any warnings related to the mapping. If the mapping has syntax/formatting issues, it'll be ignored during database synchronization and a warning will be logged.
+
 ## 401 Unauthorized when using webhooks with HTTP Basic Authentication
 
 If you are attempting to use webhooks with AniBridge and have enabled HTTP Basic Authentication for the web UI, you may encounter `401 Unauthorized` errors.

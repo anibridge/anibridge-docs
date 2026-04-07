@@ -23,3 +23,11 @@ icon: material/monitor-shimmer
 # Backups
 
 ![Backups Screenshot](../assets/images/screenshots/backups.png)
+
+# Settings
+
+![Settings Screenshot](../assets/images/screenshots/settings.png)
+
+# About
+
+![About Screenshot](../assets/images/screenshots/about.png)

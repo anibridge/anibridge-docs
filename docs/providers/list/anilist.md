@@ -21,7 +21,7 @@ list_provider_config:
 
 `str` (required)
 
-Your AniList API token.
+Your AniList OAuth access token.
 
 [:simple-anilist: Generate an AniList API token](./anilist?generate_token=anilist){: .md-button style="background-color: #1da1f2; color: white; border-radius: 0.4em;"}
 

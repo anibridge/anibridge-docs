@@ -50,6 +50,7 @@ extra_javascript = [
   "assets/js/oauth/oauth-modal.js",
   "assets/js/oauth/anilist.js",
   "assets/js/oauth/mal.js",
+  "assets/js/oauth/trakt.js",
   "assets/js/oauth/plex.js",
 ]
 

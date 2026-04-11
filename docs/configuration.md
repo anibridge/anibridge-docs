@@ -51,7 +51,7 @@ Specifies the media library provider to use (e.g., `plex`, `jellyfin`, `emby`).
 
 `str` (required)
 
-Specifies the list provider to use (e.g., `anilist`, `mal`).
+Specifies the list provider to use (e.g., `anilist`, `mal`, `trakt`).
 
 ---
 
@@ -375,6 +375,7 @@ Each provider may consume additional configuration options. Refer to the documen
   - [:simple-emby: Emby](./providers/library/emby.md){: style="text-decoration: none; color: #52b54b" }
   - [:simple-anilist: AniList](./providers/list/anilist.md){: style="text-decoration: none; color: #1da1f2" }
   - [:simple-myanimelist: MyAnimeList](./providers/list/mal.md){: style="text-decoration: none; color: #2e51a2" }
+  - [:simple-trakt: Trakt](./providers/list/trakt.md){: style="text-decoration: none; color: #ed1c24" }
 </div>
 
 ### library_provider_config
@@ -390,7 +391,7 @@ library_provider_config:
 
 ### list_provider_config
 
-This is a dictionary where each key is the namespace of a list provider (e.g., `anilist`, `mal`), and the value is another dictionary containing configuration options that will be passed to that provider.
+This is a dictionary where each key is the namespace of a list provider (e.g., `anilist`, `mal`, `trakt`), and the value is another dictionary containing configuration options that will be passed to that provider.
 
 ```yaml
 list_provider_config:

@@ -12,7 +12,12 @@ The smart way to keep your anime lists perfectly synchronized.
 
 AniBridge is a media synchronization tool designed to keep your anime watch activity synchronized across different viewing and tracking platforms. It is powered by a [mappings database](https://github.com/anibridge/anibridge-mappings) containing over 250,000 entries tailored to anime titles.
 
-AniBridge has built-in support for popular platforms like [Plex](./providers/library/plex.md), [Jellyfin](./providers/library/jellyfin.md), [Emby](./providers/library/emby.md), [AniList](./providers/list/anilist.md), [MyAnimeList](./providers/list/mal.md), [Trakt](./providers/list/trakt.md), and can be extended to support additional providers through [third-party plugins](./providers/third-party/developers-guide.md)
+[![Plex](https://img.shields.io/badge/Plex-F5A623?style=for-the-badge&logo=plex&logoColor=white)](https://anibridge.eliasbenb.dev/providers/library/plex)
+[![Jellyfin](https://img.shields.io/badge/Jellyfin-00A4DC?style=for-the-badge&logo=jellyfin&logoColor=white)](https://anibridge.eliasbenb.dev/providers/library/jellyfin)
+[![Emby](https://img.shields.io/badge/Emby-52b54b?style=for-the-badge&logo=emby&logoColor=white)](https://anibridge.eliasbenb.dev/providers/library/emby)
+[![AniList](https://img.shields.io/badge/AniList-02A9FF?style=for-the-badge&logo=anilist&logoColor=white)](https://anibridge.eliasbenb.dev/providers/list/anilist)
+[![MyAnimeList](https://img.shields.io/badge/MyAnimeList-2E51A2?style=for-the-badge&logo=myanimelist&logoColor=white)](https://anibridge.eliasbenb.dev/providers/list/mal)
+[![Trakt](https://img.shields.io/badge/Trakt-1DB954?style=for-the-badge&logo=trakt&logoColor=white)](https://anibridge.eliasbenb.dev/providers/list/trakt)
 
 ## Key Features
 
@@ -25,24 +30,4 @@ AniBridge has built-in support for popular platforms like [Plex](./providers/lib
 - **🛡️ Safe & Reliable**: Built-in dry run mode for testing and automatic backups with restoration through the web UI for easy recovery.
 - **🐳 Easy Deployment**: Docker-ready with easy YAML-based configuration.
 
-```mermaid
-flowchart LR
-    User1([👤 User 1])
-    User2([👤 User 2])
-    User3([👤 User 3])
-    Library[(📺 Media Library)]
-    AniBridge[<img src='./assets/images/logo.png' /> AniBridge]
-    List[(📱 Anime List)]
-    Mappings[(🗺️ anibridge-mappings)]
-
-    User1 -->|Watches episodes| Library
-    User2 -->|Watches movies| Library
-    User3 -->|Rates & reviews| Library
-
-    Library -->|Watch data & ratings| AniBridge
-    List -->|Current anime lists| AniBridge
-
-    AniBridge -->|ID lookups| Mappings
-
-    AniBridge -->|Intelligent sync| List
-```
+[![](https://mermaid.ink/img/pako:eNp1k8Fum0AQhl9lNYcmkWywAQeD2khtcqkUXyJVkWr7sIbxsgrsot0lqWv7GaKqhx5zyQv0VuWlmkfoQkrBVctpd_9v5t9_gC0kMkWIYZ3LuySjypDLq4Ug9vmgUY2P588PXx6bNRkvTzrF6yteX_H7it8ql3ylqNrMj58fvj6RGaactmcnyxfkreDvFE8Zzl_zghGtkjdHmTGljl2XCsvWmoM5p3qFYuWkeOtSrdFolxeUoXZzyaRTCnZE3LOu3bK9gTaN_fdaKrA5aL1ntCy5YLoGvj39_HFP_jgOi99azfZGQ4bDs901NUmGmmDJtR2k3rWhepM6AAt5y_-J-Q12RY2FXhGFFrvrcwdj7FqSlBpaF1BT33HXxe5SN_R5pRQKU-ey2XN7fAj_9Q6amvcXJJfypiot2k7oP6QwmOec1Q56I5JdYwwDYJaB2KgKB1CgKmi9hW3dYwEmwwIXENtlStXNAhZib2tKKj5KWbRlSlYsg3hNc213VWkT4wWnTNEOQZGiOpeVMBB7p9OmB8Rb-ARxMHHGYRRMJ743HgVB5A1gA_HEmzinQehHUTTy_MCf7gfwuTEdOdNwHETTYBR5_sQP_XAA9nM1Us1efpVEijVnsP8FYR4WzA?type=png)](https://mermaid.live/edit#pako:eNp1k8Fum0AQhl9lNYcmkWywAQeD2khtcqkUXyJVkWr7sIbxsgrsot0lqWv7GaKqhx5zyQv0VuWlmkfoQkrBVctpd_9v5t9_gC0kMkWIYZ3LuySjypDLq4Ug9vmgUY2P588PXx6bNRkvTzrF6yteX_H7it8ql3ylqNrMj58fvj6RGaactmcnyxfkreDvFE8Zzl_zghGtkjdHmTGljl2XCsvWmoM5p3qFYuWkeOtSrdFolxeUoXZzyaRTCnZE3LOu3bK9gTaN_fdaKrA5aL1ntCy5YLoGvj39_HFP_jgOi99azfZGQ4bDs901NUmGmmDJtR2k3rWhepM6AAt5y_-J-Q12RY2FXhGFFrvrcwdj7FqSlBpaF1BT33HXxe5SN_R5pRQKU-ey2XN7fAj_9Q6amvcXJJfypiot2k7oP6QwmOec1Q56I5JdYwwDYJaB2KgKB1CgKmi9hW3dYwEmwwIXENtlStXNAhZib2tKKj5KWbRlSlYsg3hNc213VWkT4wWnTNEOQZGiOpeVMBB7p9OmB8Rb-ARxMHHGYRRMJ743HgVB5A1gA_HEmzinQehHUTTy_MCf7gfwuTEdOdNwHETTYBR5_sQP_XAA9nM1Us1efpVEijVnsP8FYR4WzA)

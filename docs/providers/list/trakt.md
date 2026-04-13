@@ -2,13 +2,13 @@
 icon: simple/trakt
 ---
 
+# Trakt
+
 !!! warning "Instability warning"
 
     The Trakt provider is not part of the stable release channel yet. You can only currently access it under the `develop` branch.
 
     It is barely tested. Use at your own risk.
-
-# Trakt
 
 A list provider for [Trakt](https://trakt.tv/).
 
@@ -48,6 +48,12 @@ Your Trakt OAuth refresh token.
 `str` (optional, default: `"fab91d3719c4206245850c46022ba5a571677ee62a886cfd8da8fc93db4e9f7c"`)
 
 Your Trakt API client ID. The default value is AniBridge's official Trakt application ID. You can create your own at [trakt.tv/oauth/applications](https://trakt.tv/oauth/applications).
+
+### `client_secret`
+
+`str` (optional, default: `"d58b8bfcc63f8e372ff932f78c3ff5ebad0a2c99910a2cce380bf313808e2bbd"`)
+
+Your Trakt API client secret. The default value is AniBridge's official Trakt application secret. You can create your own at [trakt.tv/oauth/applications](https://trakt.tv/oauth/applications).
 
 ### `rate_limit`
 

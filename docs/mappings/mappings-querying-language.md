@@ -72,9 +72,11 @@ anilist:9999: # Source node
 
 With these concepts in mind, here are the supported fields:
 
+- `source.descriptor` → Source node descriptor (e.g., anilist:9999, tvdb_show:8888:s1, etc.)
 - `source.provider` → Source node provider (e.g., anilist, tvdb, tmdb_show, imdb, etc.)
 - `source.id` → Source node ID
 - `source.scope` → Source node scope (e.g., s0, s1, etc.)
+- `target.descriptor` → Target node descriptor (e.g., anilist:9999, tvdb_show:8888:s1, etc.)
 - `target.provider` → Target node provider (e.g., anilist, tvdb, tmdb_show, imdb, etc.)
 - `target.id` → Target node ID
 - `target.scope` → Target node scope (e.g., s0, s1, etc.)
@@ -104,20 +106,14 @@ The following fields are queried against the AniList API:
 "Dororo"
 # Title search for "Dororo"
 
-source.provider:anilist source.id:12345
-# Source AniList ID lookup
+source.descriptor:anilist:9999
+# Lookup by source descriptor
 
 source.provider:anilist | source.provider:mal
-# Source is AniList OR MyAnimeList
-
-target.provider:anilist target.id:>100000
-# Target AniList IDs greater than 100000
-
--(source.id:100..200)
-# Exclude IDs 100 to 200 (inclusive)
+# Source provider is AniList OR MyAnimeList
 
 target.id:tt0*
-# IDs starting with "tt0" (IMDB IDs)
+# Lookup target descriptors starting with "tt0"
 
 source.descriptor:s0
 # Look for season 0 (specials) in source nodes

@@ -18,9 +18,17 @@ If you find a title that is not mapped, please consider submitting a pull reques
 
 If you've added a mapping for a title but it still isn't found, there are a few things to check:
 
-- Make sure the mapping flows in the correct direction (e.g. TVDB → AniList, not MAL → AniList).
+- Make sure the mapping flows in the correct direction (e.g. TVDB → AniList, not AniList → TVDB).
 - Ensure the mapping shows up in the [mappings page](./web/mappings.md). If not, you might need to resynchronize your local mapping database.
 - Check your logs for any warnings related to the mapping. If the mapping has syntax/formatting issues, it'll be ignored during database synchronization and a warning will be logged.
+
+## Do the AniBridge mappings support alternative episode orders?
+
+No! The official [anibridge-mappings](https://github.com/anibridge/anibridge-mappings) repository only supports the default episode order for the providers that cover multiple episode orders.
+
+For TMDB and TVDB, this means we only support the "aired order". All other supported providers (AniDB, AniList, IMDB, MAL) only have one episode order, so this is not an issue for those providers.
+
+If you use any other episode order (e.g. "DVD order", "absolute order", etc.) for TMDB or TVDB, you will need to create your own custom mappings to get accurate results.
 
 ## 401 Unauthorized when using webhooks with HTTP Basic Authentication
 

@@ -44,6 +44,7 @@ global_config:
 # log_level: INFO
 # mappings_url: "https://github.com/anibridge/anibridge-mappings/releases/download/v3/mappings.json.zst"
 # provider_classes: []
+# threads: null
 # web:
 #   enabled: true
 #   host: ""

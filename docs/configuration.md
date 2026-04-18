@@ -470,6 +470,14 @@ It is up to the user to ensure that the specified classes are available in the P
 
 ---
 
+### `threads`
+
+`int | null` (optional, default: `null`)
+
+Number of threads to use for parallel processing. If set to `null`, AniBridge will automatically determine the optimal number of threads based on the number of profiles in use (`len(profiles) + 1`).
+
+---
+
 ### `web.enabled`
 
 `bool` (optional, default: `True`)

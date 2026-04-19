@@ -6,6 +6,8 @@ icon: simple/unraid
 
 AniBridge is available in the official Community Applications (CA) catalog.
 
+<https://ca.unraid.net/apps?app=vvkups&q=AniBridge>
+
 1. Open **Apps** in the Unraid web UI.
 2. Search for `AniBridge`.
 3. Open the app and click **Install**.

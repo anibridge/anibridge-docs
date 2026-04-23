@@ -52,6 +52,7 @@ extra_javascript = [
   "assets/js/oauth/mal.js",
   "assets/js/oauth/trakt.js",
   "assets/js/oauth/plex.js",
+  "assets/js/oauth/simkl.js",
 ]
 
 # Zensical supports both implicit navigation and explicitly defined navigation.

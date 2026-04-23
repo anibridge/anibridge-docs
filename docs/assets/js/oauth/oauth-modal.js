@@ -331,6 +331,22 @@
       className: "oauth-modal__status",
       text: `Generating token for ${displayName}…`,
     });
+    const helper = el("div", {
+      className: "oauth-modal__helper",
+    });
+    helper.hidden = true;
+    const helperText = el("p");
+    const helperLink = el("a", {
+      className: "oauth-modal__link",
+      text: "Open verification page",
+      attrs: {
+        href: "#",
+        target: "_blank",
+        rel: "noopener noreferrer",
+      },
+    });
+    helperLink.hidden = true;
+    helper.append(helperText, helperLink);
     const outputLabel = el("label", {
       className: "oauth-modal__label",
       text: provider?.tokenLabel ?? "Token",
@@ -374,6 +390,7 @@
       providerHeader,
       title,
       status,
+      helper,
       output,
       disclaimer,
       actions,
@@ -384,6 +401,9 @@
       doneButton,
       copyButton,
       status,
+      helper,
+      helperText,
+      helperLink,
       output,
       outputField,
       outputLabel,
@@ -471,7 +491,7 @@
       try {
         const opts = readCustomArgs?.() ?? {};
         const result = await provider.makeAuthUrl(opts);
-        if (!result?.url) throw new Error("Provider did not return a URL.");
+        if (!result) throw new Error("Provider did not return a result.");
 
         if (result.codeVerifier) {
           const storageKey =
@@ -484,7 +504,20 @@
           storage.set(redirectKey, result.redirectUri);
         }
 
-        window.location.href = result.url;
+        if (result.url) {
+          window.location.href = result.url;
+          return;
+        }
+
+        if (result.userCode && typeof provider.pollForToken === "function") {
+          close();
+          await startDeviceCodeFlow(providerId, provider, opts, result);
+          return;
+        }
+
+        throw new Error(
+          "Provider did not return a supported authorization flow.",
+        );
       } catch (error) {
         confirmButton.disabled = false;
         confirmButton.textContent = "Continue";
@@ -505,8 +538,14 @@
     });
     if (!close) return null;
 
-    modal.closeButton.addEventListener("click", close);
-    modal.doneButton.addEventListener("click", close);
+    modal.closed = false;
+    modal.close = () => {
+      modal.closed = true;
+      close();
+    };
+
+    modal.closeButton.addEventListener("click", modal.close);
+    modal.doneButton.addEventListener("click", modal.close);
     modal.copyButton.addEventListener("click", async () => {
       if (!modal.outputField.value) return;
       try {
@@ -530,13 +569,131 @@
     return modal;
   }
 
+  function setModalError(modal, message) {
+    modal.status.textContent = message;
+    modal.status.classList.add("oauth-modal__status--error");
+  }
+
+  function setManualAuthPrompt(modal, provider, prompt = {}) {
+    modal.status.classList.remove("oauth-modal__status--error");
+    modal.status.textContent =
+      prompt.statusText ??
+      `Complete the ${provider.displayName ?? "provider"} authorization to generate your token.`;
+
+    modal.outputLabel.textContent = prompt.codeLabel ?? "Verification code";
+    modal.outputField.value = prompt.code ?? "";
+    modal.outputField.rows = prompt.codeRows ?? 3;
+    modal.output.hidden = !prompt.code;
+    modal.copyButton.disabled = !prompt.code;
+
+    const helpText = prompt.helpText?.trim();
+    const helpUrl = prompt.helpUrl?.trim();
+    if (helpText || helpUrl) {
+      modal.helper.hidden = false;
+      modal.helperText.textContent = helpText ?? "";
+      if (helpUrl) {
+        modal.helperLink.hidden = false;
+        modal.helperLink.href = helpUrl;
+      } else {
+        modal.helperLink.hidden = true;
+        modal.helperLink.removeAttribute("href");
+      }
+    } else {
+      modal.helper.hidden = true;
+      modal.helperText.textContent = "";
+      modal.helperLink.hidden = true;
+      modal.helperLink.removeAttribute("href");
+    }
+  }
+
+  async function startDeviceCodeFlow(providerId, provider, opts, result) {
+    const modal = showTokenModal(providerId, provider);
+    if (!modal) return false;
+
+    const verificationUrl = result.openUrl || result.verificationUrl;
+    const pollInterval = Math.max(
+      Number(result.pollInterval ?? result.interval ?? 5) || 5,
+      1,
+    );
+    const expiresIn = Math.max(Number(result.expiresIn ?? 900) || 900, 1);
+    const expiresAt = Date.now() + expiresIn * 1000;
+
+    setManualAuthPrompt(modal, provider, {
+      statusText: result.statusText ?? "Waiting for authorization to complete…",
+      codeLabel: result.codeLabel ?? "Verification code",
+      code: result.userCode,
+      helpText:
+        result.helpText ??
+        "Open the verification page, sign in, and enter this code.",
+      helpUrl: verificationUrl,
+    });
+
+    if (verificationUrl) {
+      try {
+        window.open(verificationUrl, "_blank", "noopener,noreferrer");
+      } catch {}
+    }
+
+    try {
+      while (!modal.closed) {
+        if (Date.now() >= expiresAt) {
+          throw new Error(
+            "The verification code expired. Start the authorization flow again.",
+          );
+        }
+
+        const pollResult = await provider.pollForToken({
+          ...opts,
+          ...result,
+          userCode: result.userCode,
+          deviceCode: result.deviceCode,
+          verificationUrl,
+        });
+
+        if (modal.closed) return true;
+
+        if (pollResult?.token) {
+          setToken(modal, provider, pollResult);
+          return true;
+        }
+
+        if (pollResult?.statusText) {
+          modal.status.classList.remove("oauth-modal__status--error");
+          modal.status.textContent = pollResult.statusText;
+        }
+
+        const retryAfter = Math.max(
+          Number(pollResult?.retryAfter ?? pollInterval) || pollInterval,
+          1,
+        );
+        await new Promise((resolve) =>
+          window.setTimeout(resolve, retryAfter * 1000),
+        );
+      }
+    } catch (error) {
+      console.error(error);
+      setModalError(
+        modal,
+        error instanceof Error
+          ? error.message
+          : "Unable to generate a token. Please try again.",
+      );
+      return true;
+    }
+
+    return true;
+  }
+
   function setToken(modal, provider, tokenInfo) {
     modal.outputLabel.textContent =
       tokenInfo.tokenLabel ?? provider.tokenLabel ?? "Token";
     modal.outputField.value = tokenInfo.token;
+    modal.outputField.rows = 9;
     modal.output.hidden = false;
     modal.copyButton.disabled = false;
+    modal.helper.hidden = true;
     modal.status.textContent = "Token generated. Copy it and keep it secure.";
+    modal.status.classList.remove("oauth-modal__status--error");
 
     if (provider.tokenStorageKey) {
       storage.set(provider.tokenStorageKey, tokenInfo.token);
@@ -608,9 +765,7 @@
       return true;
     } catch (error) {
       console.error(error);
-      modal.status.textContent =
-        "Unable to generate a token. Please try again.";
-      modal.status.classList.add("oauth-modal__status--error");
+      setModalError(modal, "Unable to generate a token. Please try again.");
       return true;
     }
   }

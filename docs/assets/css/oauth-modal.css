@@ -103,6 +103,18 @@
   margin-bottom: 0.75rem;
 }
 
+.oauth-modal__helper {
+  margin-bottom: 0.85rem;
+}
+
+.oauth-modal__helper p {
+  margin-bottom: 0.35rem;
+}
+
+.oauth-modal__link {
+  font-weight: 600;
+}
+
 .oauth-modal__status--error {
   color: var(--md-accent-fg-color);
   font-weight: 600;

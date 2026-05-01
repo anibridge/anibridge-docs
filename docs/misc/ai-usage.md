@@ -63,6 +63,8 @@ These repositories define the base classes and interfaces that all library and l
 
 ### `anibridge/anibridge-mal-provider`
 
+### `anibridge/anibridge-simkl-provider`
+
 ### `anibridge/anibridge-trakt-provider`
 
 Each provider follows the interfaces defined in the `anibridge-library-base` / `anibridge-list-base` repositories. Becuase a lot of the code is shared, AI is used to adapt logic between providers.

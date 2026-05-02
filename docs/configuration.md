@@ -184,15 +184,15 @@ It can be used for simple customization like disabling a field, or for defining 
     Available templates include:
 
     - `disable_dropped_and_paused`: if the computed status is `dropped` or `paused`, keep the current status instead. If there is no current status, use `current`
-    - `disable_user_rating_and_review`: prevents `user_rating` and `review` from syncing
     - `prevent_regressions`: prevents syncing a lower value for `status`, `progress`, `repeats`, `finished_at`, and `started_at` by keeping the current value instead
     - `promote_rewatch`: if the current status is `repeating` or `completed` and the computed status is `current`, promotes the computed status to `repeating`
+    - `user_rating_requires_completed`: only syncs `user_rating` if the computed status is `completed`
 
     **Usage example:**
 
     ```yaml
     sync_rules:
-      templates: [prevent_regressions, promote_rewatch]
+      templates: [prevent_regressions, promote_rewatch, user_rating_requires_completed]
     ```
 
 ??? example "Custom Rules"

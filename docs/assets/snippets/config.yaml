@@ -12,11 +12,12 @@ global_config:
   list_provider: ...
   # scan_modes: [periodic, poll, webhook]
   # scan_interval: 86400
+  # poll_interval: 60
   # full_scan: false
   # destructive_sync: false
   # empty_sync: false
   # sync_rules:
-  #   templates: [disable_user_rating_and_review, prevent_regressions]
+  #   templates: [user_rating_requires_completed, disable_user_rating_and_review, prevent_regressions]
   #   vars: {}
   #   status: true
   #   progress: true

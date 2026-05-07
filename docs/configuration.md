@@ -278,11 +278,12 @@ It can be used for simple customization like disabling a field, or for defining 
     - `finished_at`
     - `started_at`
 
-    `ctx` currently exposes:
+    `ctx` currently exposes (undocumented, read source code for details):
     - `ctx.list_media_key`
     - `ctx.item`
     - `ctx.child`
     - `ctx.grandchildren`
+    - `ctx.mappings`
 
     Safe built-ins:
     - `abs`

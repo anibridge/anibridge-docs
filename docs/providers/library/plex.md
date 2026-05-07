@@ -96,7 +96,7 @@ Tatulli's webhooks setup is a bit more involved, but it allows you to achieve si
    - "Playback Stop"
    - "Watched"
    - "Recently Added"
-5. Under the "Data" tab configure the following "JSON Data" template for every trigger you selected in [4]:
+5. Under the "Data" tab configure the following "JSON Data" template for every trigger you selected in (4):
 
    ```json
    <movie>

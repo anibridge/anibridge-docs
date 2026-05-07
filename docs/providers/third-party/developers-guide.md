@@ -16,7 +16,7 @@ This page covers how to install and configure third-party provider classes, as w
    pip install <pypi-package-name> # git+https://github.com/<user>/anibridge-<provider>-provider.git # You can also install from Git
    ```
 
-2. Register the module in `config.yaml` via [`provider_classes`](../configuration.md#provider_classes).
+2. Register the module in `config.yaml` via [`provider_classes`](../../configuration.md#provider_classes).
 
    ```yaml
    provider_classes:

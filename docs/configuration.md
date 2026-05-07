@@ -65,8 +65,6 @@ Determines the triggers for scanning:
 - `poll`: Poll for incremental changes at the specified [poll interval](#poll_interval).
 - `webhook`: Trigger scans via webhook payloads from the library provider.
 
-Setting `scan_modes` to `None` or an empty list will cause the application to perform a single scan on startup and then exit.
-
 By default, all three modes are enabled, allowing for instant, incremental updates via polling and webhooks, as well as a full periodic scan every [`scan_interval`](#scan_interval) seconds (default: 24 hours) to catch any failed/missed updates.
 
 !!! info "Webhooks"

@@ -30,6 +30,12 @@ For TMDB and TVDB, this means we only support the "aired order". All other suppo
 
 If you use any other episode order (e.g. "DVD order", "absolute order", etc.) for TMDB or TVDB, you will need to create your own custom mappings to get accurate results.
 
+## Why did my AniList token stop working?
+
+AniList access tokens automatically expire one year after they are issued. When a token expires, AniBridge can no longer authenticate and reports the token as invalid or unauthorized.
+
+You must repeat the [AniList authentication flow](./providers/list/anilist.md) to generate a new token, then replace the existing `token` in your AniBridge configuration.
+
 ## 401 Unauthorized when using webhooks with HTTP Basic Authentication
 
 If you are attempting to use webhooks with AniBridge and have enabled HTTP Basic Authentication for the web UI, you may encounter `401 Unauthorized` errors.
